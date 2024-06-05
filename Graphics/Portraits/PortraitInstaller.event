@@ -1,0 +1,49 @@
+
+#define RepointMugEntry(mugEntry, mugLocation, mouthX, mouthY, eyeX, eyeY) "PUSH; ORG NewPortraitTable+mugEntry*0x1C; POIN mugLocation; POIN mugLocation+0x1624; POIN mugLocation+0x1604; POIN mugLocation+0x1004; WORD 0x00000000; BYTE mouthX mouthY eyeX eyeY; WORD 0x01; POP"
+
+#define ProtectSpace_PortraitTable(index) "ORG NewPortraitTable+(index*0x1C); WORD 0 0 0 0 0 0 0"
+
+PUSH
+ORG $5524
+POIN NewPortraitTable
+POP
+
+ALIGN 4
+NewPortraitTable:
+#incbin "ForInsertion/FE8VanillaPortraitTable.dmp"
+ProtectSpace_PortraitTable(0xAD) //change to last portrait/class card id
+ALIGN 4
+
+/*
+//For Capture's compatibility
+Blank_Portrait:
+#incbin "ForInsertion/Blank_Portrait_mug.dmp"
+#incbin "ForInsertion/Blank_Portrait_frames.dmp"
+#incbin "ForInsertion/Blank_Portrait_palette.dmp"
+#incbin "ForInsertion/Blank_Portrait_minimug.dmp"
+RepointMugEntry(0x1, Blank_Portrait, 3, 5, 3, 3)
+ALIGN 4
+*/
+
+/*
+Portrait:
+#incbin "ForInsertion/_mug.dmp"
+#incbin "ForInsertion/_frames.dmp"
+#incbin "ForInsertion/_palette.dmp"
+#incbin "ForInsertion/_minimug.dmp"
+RepointMugEntry(mugEntry, mugLocation, mouthX, mouthY, eyeX, eyeY)
+ALIGN 4
+*/
+
+//Player units
+
+
+//Bosses
+
+
+//NPCs/Temporary Player Units
+
+
+
+#include "PortraitHeight.event" //credit 2WB
+ALIGN 4

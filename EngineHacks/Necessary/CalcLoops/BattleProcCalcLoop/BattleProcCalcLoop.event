@@ -4,6 +4,7 @@
 
 ProcLoopParent:
 #incbin "ProcLoop/proc_loop.dmp"
+POIN Proc_BurnConsistentRns
 POIN ProcLoop_Start	//start
 
 POIN Proc_Devil	//devil effect

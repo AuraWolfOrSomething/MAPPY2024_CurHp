@@ -1,0 +1,141 @@
+## StaffExpLabel
+EXP[X]
+
+## StaffWexpLabel
+WEXP[X]
+
+## SupportTotal
+Nxt[X]
+
+## SupportPointsPerTurnOrChapter
+Chp[X]
+
+## SupportAvoid
+Avd[X]
+
+## SupportDodge
+Ddg[X]
+
+## ClassCapLabel
+Class Cap[X]
+
+## UniversalCapLabel
+Universal Cap[X]
+
+## RankCurrentLabel
+WEXP[X]
+
+## RankNextLabel
+Rank Up[X]
+
+## CalcLabel
+Calc[X]
+
+## SS_AttackCalcHelpText
+Mt + Pow[X]
+
+## SS_HitCalcHelpText
+Wpn Hit + Skl*2 + Lck/2[X]
+
+## SS_CritCalcHelpText
+Wpn Crit + Skl/2[X]
+
+## SS_AvoidCalcHelpText
+AS + Lck + Terrain[X]
+
+## SS_AttackSpeedCalcHelpText
+Spd - (Wt - Con; minimum 0)[X]
+
+## SS_AttackSpeedHelpText
+Attack Speed. Allows followup attacks[NL]
+when a unit has 4+ AS over their enemy.[X]
+
+## AgeLabel
+Age[X]
+
+## PronounLabel
+Pronouns[X]
+
+## UnknownAge
+???[X]
+
+## HeHim
+He/Him[X]
+
+## SheHer
+She/Her[X]
+
+## TheyThem
+They/Them[X]
+
+## AnyPronouns
+Any[X]
+
+## HeThey
+He/They[X]
+
+## SheThey
+She/They[X]
+
+## HeAny
+He/Any[X]
+
+## SheAny
+She/Any[X]
+
+## TheyAny
+They/Any[X]
+
+## PromotionLabel
+Promotion[X]
+
+## ClassTextID
+Class[X]
+
+## UnitCapLabel
+Cap[X]
+
+## ClassCapModLabel
+Mod[X]
+
+## ConditionNameLabel
+Name[X]
+
+## ConditionDurationLabel
+Duration[X]
+
+## SkillActiveLabel
+Active[X]
+
+## SkillUsesLabel
+Uses Left[X]
+
+## SkillAmountLabel
+Amount[X]
+
+## ClassTextId
+Class[X]
+
+## MovTextId
+Mov[X]
+
+## ConTextId
+Con[X]
+
+## HpTextId
+HP[X]
+
+## PowTextId
+Pow[X]
+
+## SklTextId
+Skl[X]
+
+## SpdTextId
+Spd[X]
+
+## DefTextId
+Def[X]
+
+## ResTextId
+Res[X]

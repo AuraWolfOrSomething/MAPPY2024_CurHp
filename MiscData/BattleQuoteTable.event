@@ -1,0 +1,10 @@
+
+PUSH
+
+ORG 0x9EC6BC
+
+
+
+BattleQuoteEnd
+
+POP

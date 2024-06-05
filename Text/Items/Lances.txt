@@ -1,0 +1,98 @@
+## IronLanceName
+Iron Lance[X]
+
+## IronLanceDesc
+ [X]
+
+## BronzeLanceName
+Bronze Lnc[X]
+
+## BronzeLanceDesc
++15 Dodge.[X]
+
+## SteelLanceName
+Steel Lance[X]
+
+## SteelLanceDesc
+ [X]
+
+## SilverLanceName
+Silver Lance[X]
+
+## SilverLanceDesc
+ [X]
+
+## BraveLanceName
+Brave Lance[X]
+
+## BraveLanceDesc
+Can perform consecutive attacks.[X]
+
+## KillerLanceName
+Killer Lance[X]
+
+## KillerLanceDesc
+ [X]
+
+## HorseslayerName
+Horseslayer[X]
+
+## HorseslayerDesc
+Mt x3 vs cavalry.[X]
+
+## JavelinName
+Javelin[X]
+
+## JavelinDesc
+ [X]
+
+## SpearName
+Spear[X]
+
+## SpearDesc
+ [X]
+
+## AxereaverName
+Axereaver[X]
+
+## AxereaverDesc
+Reverses weapon triangle and[N]
+doubles its effects.[X]
+
+## HeavySpearName
+Heavy Spear[X]
+
+## HeavySpearDesc
+Mt x3 vs heavy armor.[X]
+
+## ShortSpearName
+Short Spear[X]
+
+## ShortSpearDesc
+ [X]
+
+## DefenderName
+Defender[X]
+
+## DefenderDesc
+Cannot perform followup attacks.[N]
+-6 damage taken when initiating.[X]
+
+## GreatlanceName
+Greatlance[X]
+
+## GreatlanceDesc
+ [X]
+
+## SaunionName
+Saunion[X]
+
+## SaunionDesc
+Keith only. A powerful throwing spear.[X]
+
+## KarmaName
+Karma[X]
+
+## KarmaDesc
+Uncountered damage taken by this unit[N]
+is reduced by Lck instead of Def/Res.[X]

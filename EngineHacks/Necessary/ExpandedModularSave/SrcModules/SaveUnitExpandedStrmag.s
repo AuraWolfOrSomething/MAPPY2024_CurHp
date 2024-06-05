@@ -25,9 +25,10 @@
 	@   +17 | u8[7] supports
 	@   +1E | u16[5] items
 	@   +28 | u32 state
-	@   +2C | (end)
+	@	+2C | u8 chp
+	@   +2D | (end)
 
-	GameSaveUnit.size = 0x2C
+	GameSaveUnit.size = 0x30
 
 	@ SuspendSaveUnit (Common):
 	@   +00 | <GameSaveUnit>
@@ -235,6 +236,11 @@ PackGameSaveUnit.lop_items:
 
 	ldr r2, [r1, #0x0C] @ r2 = Unit->state
 	str r2, [r0, #0x28] @ GameSaveUnit->state = Unit->state
+	
+	@ Current Hp
+	ldrb r2, [r1, #0x13] @ r2 = Unit->chp
+	mov r3, #0x2C
+	strb r2, [r0, r3] @ GameSaveUnit->chp = Unit->chp
 
 	@ END
 
@@ -413,23 +419,29 @@ UnpackGameSaveUnit.lop_items:
 
 	ldr r2, [r5, #0x28] @ r2 = GameSaveUnit->state
 	str r2, [r4, #0x0C] @ Unit->state = GameSaveUnit->state
+	
+	@ Current Hp
+	
+	mov r0, #0x2C
+	ldrb r2, [r5, r0] @ r2 = GameSaveUnit->mhp
+	strb r2, [r4, #0x13] @  = GameSaveUnit->mhp
 
 	@ MISC
 
 	@ Set current hp to max
 
-	ldr r3, =GetUnitMaxHp
+	@ldr r3, =GetUnitMaxHp
 
-	mov r0, r4 @ GetUnitMaxHp arg r0 = Unit
+	@mov r0, r4 @ GetUnitMaxHp arg r0 = Unit
 
-	bl  BXR3
+	@bl  BXR3
 
-	ldr r3, =SetUnitHp
+	@ldr r3, =SetUnitHp
 
-	mov r1, r0 @ SetUnitHp arg r1 = Hp
-	mov r0, r4 @ SetUnitHp arg r0 = Unit
+	@mov r1, r0 @ SetUnitHp arg r1 = Hp
+	@mov r0, r4 @ SetUnitHp arg r0 = Unit
 
-	bl  BXR3
+	@bl  BXR3
 
 	@ END
 
@@ -460,8 +472,8 @@ PackPlayerSuspendSaveUnit:
 	mov  r2, #0x2C
 	add  r2, r0 @ r2 = su+0x2C, for easier addressing (0x2C+ is out of ldrb/strb range)
 
-	ldrb r1, [r4, #0x13] @ r1 = u->chp
-	strb r1, [r2, #0x00] @ su->chp = u->chp
+	@ldrb r1, [r4, #0x13] @ r1 = u->chp
+	@strb r1, [r2, #0x00] @ su->chp = u->chp
 
 	ldrb r1, [r4, #0x1B] @ r1 = u->rescue
 	strb r1, [r2, #0x01] @ su->rescue = u->rescue
@@ -505,8 +517,8 @@ UnpackPlayerSuspendSaveUnit:
 	mov  r2, #0x2C
 	add  r2, r4 @ r2 = su+0x2C, for easier addressing (0x2C+ is out of ldrb/strb range)
 
-	ldrb r1, [r2, #0x00] @ r1 = su->chp
-	strb r1, [r0, #0x13] @ u->chp = su->chp
+	@ldrb r1, [r2, #0x00] @ r1 = su->chp
+	@strb r1, [r0, #0x13] @ u->chp = su->chp
 
 	ldrb r1, [r2, #0x01] @ r1 = su->rescue
 	strb r1, [r0, #0x1B] @ u->rescue = su->rescue
@@ -550,8 +562,8 @@ PackOtherSuspendSaveUnit:
 	mov  r2, #0x2C
 	add  r2, r0 @ r2 = su+0x2C, for easier addressing (0x2C+ is out of ldrb/strb range)
 
-	ldrb r1, [r4, #0x13] @ r1 = u->chp
-	strb r1, [r2, #0x00] @ su->chp = u->chp
+	@ldrb r1, [r4, #0x13] @ r1 = u->chp
+	@strb r1, [r2, #0x00] @ su->chp = u->chp
 
 	ldrb r1, [r4, #0x1B] @ r1 = u->rescue
 	strb r1, [r2, #0x01] @ su->rescue = u->rescue
@@ -612,8 +624,8 @@ UnpackOtherSuspendSaveUnit:
 	mov  r2, #0x2C
 	add  r2, r4 @ r2 = su+0x2C, for easier addressing (0x2C+ is out of ldrb/strb range)
 
-	ldrb r1, [r2, #0x00] @ r1 = su->chp
-	strb r1, [r0, #0x13] @ u->chp = su->chp
+	@ldrb r1, [r2, #0x00] @ r1 = su->chp
+	@strb r1, [r0, #0x13] @ u->chp = su->chp
 
 	ldrb r1, [r2, #0x01] @ r1 = su->rescue
 	strb r1, [r0, #0x1B] @ u->rescue = su->rescue

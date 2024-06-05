@@ -58,153 +58,57 @@ b DoneProcessDebuffs
 Continue: 
 mov r0, r7 
 blh GetUnit 
-mov r4, r0 @ unit 
-
+mov r4, r0
 bl IsUnitOnField @(Unit* unit)
 cmp r0, #0 
 beq UnitLoop 
 
-mov r0, r4 
-bl GetUnitDebuffEntry
-mov r5,r0
-mov r0, r4 @ unit 
-ldr r1, =EternalVanity_Link 
-ldr r1, [r1] 
-bl SkillTester 
-mov r4, r0 @ @ if true, do not deplete buffed stats 
+mov r0, r4
+blh	GetDebuffs, r1
+mov r3, r0
+ldr r2, [r3]
+mov r0, #0
 
+@Do not remove Absorb debuff
+ldrb r4, [r3,#3]
+lsl r4, #24
 
-ldr r2, =DebuffStatNumberOfBits_Link
-ldr r6, [r2] 
+processDebuffLoop:
+mov r1, #0xF    @One debuff nibble
+lsl r1, r0
+and r1, r2
+cmp r1, #0x0
+beq noDebuff
+lsr r1, r0
+sub r1, #0x1    @decrement if there
+lsl r1, r0
+orr r4, r1
+noDebuff: 
+add r0, #0x4    @next nibble
+cmp r0, #0x0C @anything in the third byte is automatically cleared (debuffs with a one turn duration)
+ble processDebuffLoop
+str r4, [r3]    @Store processed debuffs/no rallies
 
-@ I dont think a loop would be any more efficient in terms of speed 
-@ (but it would look nicer and take fewer lines of code) 
-ldr r1, =DebuffStatBitOffset_Mag
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Mag
-ldr r1, [r1] 
-bl PackData_Signed 
+@Now the buffs
+ldrh r2, [r3,#4]
+mov r0, #0
+mov r4, #0
 
-
-ldr r1, =DebuffStatBitOffset_Str
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Str
-ldr r1, [r1] 
-bl PackData_Signed 
-
-
-ldr r1, =DebuffStatBitOffset_Skl
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Skl
-ldr r1, [r1] 
-bl PackData_Signed 
-
-
-ldr r1, =DebuffStatBitOffset_Spd
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Spd
-ldr r1, [r1] 
-bl PackData_Signed 
-
-
-ldr r1, =DebuffStatBitOffset_Def
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Def
-ldr r1, [r1] 
-bl PackData_Signed 
-
-
-ldr r1, =DebuffStatBitOffset_Res
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Res
-ldr r1, [r1] 
-bl PackData_Signed 
-
-
-ldr r1, =DebuffStatBitOffset_Luk
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Luk
-ldr r1, [r1] 
-bl PackData_Signed 
-
-
-ldr r1, =DebuffStatBitOffset_Mov
-ldr r1, [r1] 
-mov r0, r5 @ unit debuff entry ram 
-mov r2, r6 
-bl UnpackData_Signed @ given r0 = address, r1 = bit offset, r2 = number of bits, return that data 
-mov r1, r4 
-bl GetNewTemporaryStatValue @ r0 = value for a debuffed/buffed stat, r1 = if true, do not deplete buffed stats 
-mov r3, r0 @ to store back 
-mov r0, r5 
-mov r2, r6 @ # of bits 
-ldr r1, =DebuffStatBitOffset_Mov
-ldr r1, [r1] 
-bl PackData_Signed 
-
-ldr r1, =RalliesOffset_Link 
-ldr r1, [r1] 
-mov r3, #0 @ value 
-mov r0, r5 @ debuff entry for unit 
-ldr r2, =RalliesNumberOfBits_Link 
-ldr r2, [r2] 
-bl PackData
+processBuffLoop:
+mov r1, #0xF    @One buff nibble
+lsl r1, r0
+and r1, r2
+cmp r1, #0x0
+beq noBuff
+lsr r1, r0
+sub r1, #0x1    @decrement if there
+lsl r1, r0
+orr r4, r1
+noBuff: 
+add r0, #4    @next nibble
+cmp r0, #4 @anything in the second byte is automatically cleared (buffs with a one turn duration)
+ble processBuffLoop
+strh r4, [r3,#4]
 
 b UnitLoop
 DoneProcessDebuffs:

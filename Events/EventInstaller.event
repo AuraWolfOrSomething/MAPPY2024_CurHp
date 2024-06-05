@@ -1,0 +1,8 @@
+
+#include EAstdlib.event
+
+#include "REDAs.event" //credit to Snek
+
+{
+#include "Prologue/PrologueEvents.event"
+}

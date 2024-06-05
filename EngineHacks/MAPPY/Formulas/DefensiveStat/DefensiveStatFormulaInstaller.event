@@ -1,0 +1,11 @@
+PUSH
+
+ORG 0x2AA44
+#include "DefensiveStatFormulaParameters.lyn.event"
+ALIGN 4
+PROTECT 0x2AA44 CURRENTOFFSET-1
+
+POP
+
+#include "DefensiveStatFormula.lyn.event"
+ALIGN 4

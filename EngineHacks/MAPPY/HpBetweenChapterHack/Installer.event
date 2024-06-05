@@ -1,0 +1,61 @@
+// written by Ysor
+
+#include "Extensions/Hack Installation.txt"
+
+#include "HpBetweenChapterHack.lyn.event"
+
+//Hook 1
+//ChapterEndUnitClear
+PUSH
+ORG 0x31274
+callHack_r3(RegainHpAfterChapter)
+SHORT 0x46C0
+PROTECT 0x31274 currentOffset
+POP
+
+//Misc Hook
+//ResetAllPlayerUnits
+PUSH
+ORG 0x854A6
+SHORT 0x46C0 0x46C0
+POP
+
+
+//Configuration|Mode Behavior Definitions|
+#define DoNotRegain	0
+#define RegainXHp	1
+#define RegainAllHP 2
+//Configuration|Bonus HP
+#define LordBonus 0 //15
+#define UndeployedBonus 0 //15
+//Configuration|Fixed heal
+#define FixedHp 0 //15
+
+//Link Area
+EasyBehaviorLink:
+BYTE DoNotRegain //RegainAllHP
+
+NormalBehaviorLink:
+BYTE DoNotRegain //RegainXHp
+
+HardBehaviorLink:
+BYTE DoNotRegain
+
+LordBehaviorLink:
+BYTE DoNotRegain //RegainXHp
+
+UndeployedBehaviorLink:
+BYTE DoNotRegain //RegainAllHP
+
+//-------------------
+FixedHPAmountLink:
+BYTE FixedHp
+
+LordBonusAmountLink:
+BYTE LordBonus
+
+UndeployedBonusAmountLink:
+BYTE UndeployedBonus
+
+
+//Edit saves to account for Current HP when loading the game. Check EMS_Instructions.txt

@@ -1,0 +1,111 @@
+
+PowLabelLink:
+SHORT PowerTextID
+
+SpdLabelLink:
+SHORT SpeedTextID
+
+ALIGN 4
+
+//Called by StatGetters
+prShiftUseSpeedForPower:
+#include "asm/ShiftUseSpeedForPower.lyn.event"
+ALIGN 4
+
+prShiftUsePowerForSpeed:
+#include "asm/ShiftUsePowerForSpeed.lyn.event"
+ALIGN 4
+
+ShiftStaffTargetConditionsList:
+POIN TargetCheckBeingRescued
+POIN TargetCheckShiftEffect
+//POIN CannotIfTargetHasShade
+WORD 0
+
+
+//-------------------------------------------
+//WIZARD CHECKPOINT
+//Do not touch anything below unless you know what you're doing
+//-------------------------------------------
+
+
+
+//----------------------------
+//Usability
+//----------------------------
+
+#include "asm/ShiftUsability.lyn.event"
+ALIGN 4
+
+
+//----------------------------
+//Target
+//----------------------------
+
+#include "asm/ShiftTarget.lyn.event"
+ALIGN 4
+
+#include "asm/MakeTargetListForShift.lyn.event"
+ALIGN 4
+
+#include "asm/ShiftStaffRangeSetup.lyn.event"
+ALIGN 4
+
+//#include "asm/TryAddUnitToShiftTargetList.lyn.event"
+ALIGN 4
+
+/*
+TryAddUnitToShiftTargetList:
+SHORT 0xB500 //push {r14}
+SHORT 0x4903 //ldr r1, =ShiftStaffTargetConditionsList
+SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+SHORT 0x4696 //mov lr, r2
+SHORT 0xF800 //bl lr+0
+SHORT 0xBC01 //pop {r0}
+SHORT 0x4700 0 //bx r0
+POIN ShiftStaffTargetConditionsList
+POIN TryAddUnitToTargetList
+*/
+
+#include "asm/TryAddUnitToShiftTargetList_Mumcu.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckShiftEffect.lyn.event"
+ALIGN 4
+
+#include "asm/ShiftTargetChange.lyn.event"
+ALIGN 4
+
+#include "asm/SetupShiftTargetWindow.lyn.event"
+ALIGN 4
+
+#include "asm/UnitInfoWindow_ShiftDrawPower.lyn.event"
+ALIGN 4
+
+#include "asm/UnitInfoWindow_ShiftDrawSpeed.lyn.event"
+ALIGN 4
+
+#include "asm/UnitInfoWindow_DrawShiftDuration.lyn.event"
+ALIGN 4
+
+ShiftTargetBottomTextLink:
+SHORT 0x087B
+ALIGN 4
+
+gMenu_ShiftTargetMenu:
+POIN 0x29CDC|1
+POIN 0x4E884|1 //ClearBG0BG1
+WORD 0
+POIN ShiftTargetChange|1
+WORD 0
+POIN 0x29550|1 //GenericStaffSelection_OnSelect
+POIN 0x2282C|1 //GenericSelection_BackToUM_CamWait
+WORD 0
+
+
+//----------------------------
+//Effect
+//----------------------------
+
+#include "asm/InflictShift.lyn.event"
+ALIGN 4

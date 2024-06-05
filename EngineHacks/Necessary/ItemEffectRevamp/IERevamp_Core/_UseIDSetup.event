@@ -26,14 +26,22 @@
 		BL(Item_GetStat_EffectID)
 		SHORT 0x2100
 		BL(EffectJumpTable)
-		SHORT 0x4687	//mov r15, r0
+		SHORT 0x1C02 0x1C20 //mov r2, r0; mov r0, r4
+		SHORT 0x1C29 0x4697 //mov r1, r5; mov r15, r2
+		
+		//SHORT 0x4687	//mov r15, r0
+		
 		//jumpToHack(EffectJumpTable)
 		
 		ORG $28E72	//Item Effect Targeting
 		BL(Item_GetStat_EffectID)
 		SHORT 0x2108
 		BL(EffectJumpTable)
-		SHORT 0x4687	//mov r15, r0
+		SHORT 0x1C02 0x1C28 //mov r2, r0; mov r0, r5
+		SHORT 0x1C21 0x4697 //mov r1, r4; mov r15, r2
+		
+		//SHORT 0x4687	//mov r15, r0
+		
 		//jumpToHack(EffectJumpTable)
 		
 		ORG $2FC62	//Item Use Effect
@@ -41,7 +49,11 @@
 		ORG $2FC72
 		SHORT 0x210C
 		BL(EffectJumpTable)
-		SHORT 0x4687	//mov r15, r0
+		SHORT 0x1C02 0x1C30 //mov r2, r0; mov r0, r6 
+		SHORT 0x4641 0x4697 //mov r1, r8; mov r15, r2
+		
+		//SHORT 0x4687	//mov r15, r0
+		
 		//jumpToHack(EffectJumpTable)
 		
 		ORG $29F18	//Prescreen Item Usability
@@ -123,7 +135,7 @@
 		POIN UseEffectAnimTable SpellAssociationTable
 	
 	//for use space where tables used to be to put stuff in bl range
-	ORG $28E80 //$288A8
+	ORG $28E84 //$28E80 //$288A8
 		EffectJumpTable:
 		SHORT 0x4B03	//ldr r3, Item_GetStat_EffectID
 		SHORT 0x2214	//mov r2, #0x14

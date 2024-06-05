@@ -1,0 +1,122 @@
+
+//Definitions
+	#define PrepScreenMapMenuCommand(name,desc,effect,id) "WORD 0; POIN effect|1; SHORT name desc; BYTE id 0; SHORT 0"
+	#define PrepScreenMapMenuCommand(name,desc,usability,effect,id) "POIN usability|1; POIN effect|1; SHORT name desc; BYTE id 0; SHORT 0"
+
+	#define PS_ViewMap "WORD 0; POIN 0x33358|1; SHORT 0x0590 0x05BB; BYTE 1 0; SHORT 0"
+	#define PS_Formation "POIN 0x95970|1 0x3336C|1; SHORT 0x0591 0x05BC; BYTE 2 0; SHORT 0"
+	#define PS_Options "WORD 0; POIN 0x3341C|1; SHORT 0x0592 0x05BD; BYTE 8 0; SHORT 0"
+	#define PS_Save "POIN 0x94FF4|1 0x33458|1; SHORT 0x0579 0x05BE; BYTE 9 0; SHORT 0"
+	#define PS_Separator "WORD 0 0"
+
+PrepScreenMapMenuList:
+
+PS_ViewMap
+
+PS_Formation
+
+#ifdef USE_PREP_SCREEN_GUIDE
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenGuide|1 //After selecting
+SHORT PrepScreenGuideText 0x06E5 //Text ID; help text ID
+PrepScreenGuideIDLink:
+BYTE 0xA //Option ID
+PrepScreenGuideProcLabelLink:
+BYTE PrepScreenGuideProcLabel
+SHORT 0 //Text color if no color conditional routine
+#endif
+
+//Toggles
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenTogglesDisplay|1 //After selecting
+SHORT PS_Toggles TogglesDesc //Text ID; help text ID
+PrepScreenTogglesDisplayIDLink:
+BYTE 3 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+
+//Difficulty
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenDifficultyDisplay|1 //After selecting
+SHORT PS_Difficulty DifficultyDesc //Text ID; help text ID
+PrepScreenDifficultyDisplayIDLink:
+BYTE 4 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+
+PS_Options
+
+PS_Save
+
+//Have all new commands before this
+PS_Separator
+
+
+PrepScreenMapMenuColorConditionalList:
+WORD PS_AiTog //text ID
+POIN AiToggleColor //routine to check if color should be different
+
+/*
+WORD PS_ReinWarn //text ID
+POIN ReinforcementWarningsColor //routine to check if color should be different
+
+WORD PS_ShopSort //text ID
+POIN ShopSortColor //routine to check if color should be different
+
+WORD PS_Chill
+POIN ChillModeColor
+
+WORD PS_Normal
+POIN NormalModeColor
+
+WORD PS_Hard
+POIN HardModeColor
+*/
+
+//end of the list
+WORD 0
+
+
+/*
+//TESTING
+ReturnGrayColor:
+SHORT 0x2001 0x4770
+ALIGN 4
+*/
+
+/*
+//TESTING
+PrepScreenNeverUsable:
+SHORT 0x2000 0x4770
+*/
+
+
+
+//-------------------------------------------
+//WIZARD CHECKPOINT
+//Do not touch anything below unless you know what you're doing
+//-------------------------------------------
+
+
+
+PUSH
+
+ORG 0x33648
+#include "asm/SetUpPrepScreenMapMenu.lyn.event"
+ALIGN 4
+PROTECT 0x33648 CURRENTOFFSET-1
+
+ORG 0x971BE
+SHORT 0x9001 0x1C20 //str r0, [sp,#4]; mov r0, r4
+BL(PrepScreenMapMenuCommandColor)
+SHORT 0x0071 0x4A0C //lsl r1, r6, #1; ldr r2, =gBg0MapBuffer
+SHORT 0x1889 0x1C02 //add r1, r2; mov r2, r0
+SHORT 0x2300 0x9300 //mov r3, #0; str r3, [sp]
+PROTECT 0x971BE CURRENTOFFSET-1
+
+ORG continueInBlRange
+#include "asm/PrepScreenMapMenuCommandColor.lyn.event"
+ALIGN 4
+
+#undef continueInBlRange
+#define continueInBlRange currentOffset
+
+POP

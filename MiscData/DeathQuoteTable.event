@@ -1,0 +1,43 @@
+
+PUSH
+ORG 0x8472C
+POIN(DeathQuoteTable)
+POP
+
+DeathQuoteTable:
+
+//Player units - deaths on any chapter
+DeathQuoteScene(0x01,LordDeathEvent)
+
+//Boss units
+
+
+DeathQuoteEnd
+
+
+
+LordDeathEvent:
+	TEXTSTART
+	TEXTSHOW 0x0C23
+	TEXTEND
+	REMA
+
+	//check if planning
+	  //if so, don't cause game over
+	  //if not planning, game over
+	CHECK_EVENTID PlanEventID
+
+	IFNE 1 sC s0
+
+		CALL DoNotLoseIfPlanningEvent
+		GOTO 2
+		
+	LABEL 1
+		
+		ENUT 0x65
+		
+	LABEL 2
+
+	NoFade
+	ENDA
+

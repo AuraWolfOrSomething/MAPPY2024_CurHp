@@ -1,0 +1,12 @@
+
+## MM_Undo
+ Undo [X]
+
+## UndoDesc
+Rewind to before the most[N]
+recent unit's action.[N]
+Limited uses per chapter.[X]
+
+## UndoDenyEffectText
+There is no data that[N]
+can be recalled.[X]

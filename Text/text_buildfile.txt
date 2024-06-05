@@ -121,3 +121,78 @@ a skill when used.[X]
 #include "skilldesc_text.txt"
 
 #include "unitinfo_text.txt"
+
+## ArrowTextID
+->[X]
+
+## RankLabel
+Rank[X]
+
+## SupplyViewCommand
+View[X]
+
+## SupplyViewCommandHelpText
+Can freely look into the storage,[N]
+but cannot take anything out due[N]
+to this unit having too many items.[X]
+
+## SupplyConvoyResponse_View
+Take a look.[X]
+
+## MM_QuickSave
+ QS [X]
+
+## QuickSaveDesc
+Save battle progress.[N]
+Limited uses per chapter and[N]
+stops automatic suspend updates.[X]
+
+## PS_Difficulty 
+Difficulty[X]
+
+## DifficultyDesc
+Change to a different[N]
+difficulty mode.[X]
+
+## PS_Chill
+Chill[X]
+
+## PS_Normal
+Normal[X]
+
+## PS_Hard
+Hard[X]
+
+## MM_Toggles
+ Toggles[X]
+
+## PS_Toggles
+Toggles[X]
+
+## TogglesDesc
+Access different toggles.[X]
+
+#include "FlashingIcon.txt"
+
+#include "HelpTextAsmAdditions.txt"
+
+#include "StatScreenConditions.txt"
+
+#include "AiToggle.txt"
+
+#include "Plan.txt"
+
+#include "Undo.txt"
+
+#include "Items/Swords.txt"
+#include "Items/Lances.txt"
+#include "Items/Axes.txt"
+#include "Items/Bows.txt"
+
+#include "Items/AnimaTomes.txt"
+#include "Items/LightTomes.txt"
+#include "Items/DarkTomes.txt"
+#include "Items/Staves.txt"
+
+#include "Items/Items.txt"
+

@@ -1,0 +1,105 @@
+﻿//I could definitely get rid of these, but nah
+//Made by Camtech075 of SerenesForest
+//Modified by Nintenlord
+
+#define NameEventID 0x0A
+
+EventPointerTable(EventTableID,Pointers)
+
+Pointers:
+POIN TurnBasedEvents
+POIN CharacterBasedEvents
+POIN LocationBasedEvents
+POIN MiscBasedEvents
+POIN Dunno Dunno Dunno
+POIN Tutorial
+POIN TrapData TrapData
+POIN Units Units
+POIN $0 $0 $0 $0 $0 $0
+POIN BeginningScene EndingScene
+
+#include "TemplateUnits.event"
+
+TurnBasedEvents:
+END_MAIN
+ALIGN 32 //For some reason, CharacterBasedEvents have to be 32-Aligned?
+
+CharacterBasedEvents:
+END_MAIN
+
+LocationBasedEvents:
+END_MAIN
+
+MiscBasedEvents:
+CauseGameOverIfLordDies
+END_MAIN
+
+Dunno:
+END_MAIN
+
+Tutorial:
+END_MAIN
+
+TrapData:
+ENDTRAP
+
+ALIGN 4
+
+
+
+BeginningScene:
+//Do all unit loading before setting a background (even if it's just the plain black background)
+
+//Set map menu command uses
+ASMC SetQuickSaveUses|1
+ASMC SetUndoInitialStatus|1
+
+//CHECK_HARD
+//IFNE 1 sC s0
+
+	//Hard Mode enemy group
+	Load(BadUnits)
+
+//GOTO 2
+//LABEL 1
+
+	//CHECK_TUTORIAL
+	//IFEQ 3 sC s0
+
+		//Normal Mode enemy group
+		//Load(BadUnitsNormal)
+		
+	//GOTO 4
+	//LABEL 3
+
+		//Chill Mode enemy group
+		//Load(BadUnitsChill)
+
+	//LABEL 4
+	
+//LABEL 2
+
+LoadPrepUnits(Units)
+GotoPrepScreen
+ENDA
+
+EndingScene:
+ENUF GuideChapterAdvice
+DoNotWinIfPlanning(1,2)
+
+#ifdef TESTING_EASY_CLEAR
+	//stuff
+#endif
+
+CALL PostMapFunctions
+
+#ifdef TESTING_CHAPTER_TRANSITION
+	MNC2 currentChapter
+#else
+	MNC2 currentChapter+1
+#endif
+
+LABEL 2 //use DoNotWinIfPlanning condID2
+ENDA
+
+//MESSAGE Events end at offset CURRENTOFFSET

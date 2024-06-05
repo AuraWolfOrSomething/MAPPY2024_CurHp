@@ -1,0 +1,78 @@
+## IronSwordName
+Iron Sword[X]
+
+## IronSwordDesc
+ [X]
+
+## SlimSwordName
+Slim Sword[X]
+
+## SlimSwordDesc
+ [X]
+
+## SteelSwordName
+Steel Sword[X]
+
+## SteelSwordDesc
+ [X]
+
+## SilverSwordName
+Silver Sword[X]
+
+## SilverSwordDesc
+ [X]
+
+## SteelBladeName
+Steel Blade[X]
+
+## SteelBladeDesc
+ [X]
+
+## RapierName
+Rapier[X]
+
+## RapierDesc
++3 Spd. Mt x3 vs cavalry and heavy armor.[X]
+
+## BraveSwordName
+Brave Sword[X]
+
+## BraveSwordDesc
+Can perform consecutive attacks.[X]
+
+## ShamshirName
+Shamshir[X]
+
+## ShamshirDesc
+Myrmidon/Swordmaster only.[X]
+
+## KillingEdgeName
+Killing Edge[X]
+
+## KillingEdgeDesc
+ [X]
+
+## ArmorslayerName
+Armorslayer[X]
+
+## ArmorslayerDesc
+Mt x3 vs heavy armor.[X]
+
+## LightBrandName
+Light Brand[X]
+
+## LightBrandDesc
+Suffused with light magic.[X]
+
+## LancereaverName
+Lancereaver[X]
+
+## LancereaverDesc
+Reverses weapon triangle and[N]
+doubles its effects.[X]
+
+## ZanbatoName
+Zanbato[X]
+
+## ZanbatoDesc
+Mt x3 vs cavalry.[X]

@@ -1,8 +1,10 @@
 #ifdef _FE8_
     #include "EAstdlib.event"
     #include "CustomDefinitions.event"
-//PROTECT $25224
-    ORG FreeSpace
+	
+	//Weapon Icons (Item Table requires icon definitions)
+	#include "Graphics/WeaponIcons/WeaponIconInstaller.event"
+	ORG FreeSpace
 
     #include "repointedTextTable.event"
 
@@ -17,15 +19,32 @@
     //Engine Hacks
     #include "EngineHacks/_MasterHackInstaller.event"
     MESSAGE Used hax space ends at currentOffset
-
-	#ifdef USE_TEST_MAP
-    //Events
-    #include "Events/Release_map.event"
-    #include "Events/WorldMapEvents.event"
-
-    //Maps
-    #include "Maps/MasterMapInstaller.event"
-    #endif // USE_TEST_MAP
+	
+	#include "Events/EventInstaller.event"
+	#include "Events/WMEvents/WorldMapEvents.event"
+	//MESSAGE Events end at currentOffset
+	
+	#include "MiscData/_MiscDataInstaller.event"
+	
+	StatusTextOnMinimugBox:
+	#incbin "Graphics/StatusTextOnMinimugBox.dmp"
+	
+	#include "Graphics/MapSprites/MapSpriteInstaller.event"
+	//MESSAGE Map Sprites end at currentOffset
+	
+	#include "Graphics/Portraits/PortraitInstaller.event"
+	//MESSAGE Portraits end at currentOffset
+	
+    #include "Graphics/ClassCards/ClassCardInstaller.event"
+	//MESSAGE Class Cards end at currentOffset
+	
+	#include "Graphics/ClassAnimations/ClassAnimationInstaller.event"
+	//MESSAGE Animations end at currentOffset
+	
+	#include "Repointing/RepointingArrays.event"
+	
+	#include "Music/MusicInstaller.event"
+	//MESSAGE Music ends at currentOffset
 	
 	ASSERT (FreeSpaceEnd - currentOffset) // So that you don't overwrite vanilla tables if using default freespace
 	

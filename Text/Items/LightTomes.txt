@@ -1,0 +1,55 @@
+## LightningName
+Lightning[X]
+
+## LightningDesc
+ [X]
+
+## ShineName
+Shine[X]
+
+## ShineDesc
+ [X]
+
+## DivineName
+Divine[X]
+
+## DivineDesc
+ [X]
+
+## PurgeName
+Purge[X]
+
+## PurgeDesc
+Long-range magic attack.[X]
+
+## AuraName
+Aura[X]
+
+## AuraDesc
+ [X]
+
+## FortuneTomeName
+Fortune[X]
+
+## FortuneTomeDesc
+User attacks with Lck.[N]
+Enemy defends with Lck.[X]
+
+## InsightTomeName
+Insight[X]
+
+## InsightTomeDesc
+5 WEXP.[X]
+
+## LusterName
+Luster[X]
+
+## LusterDesc
++3 Spd. Immediate followup attack.[X]
+
+## SoulName
+Soul[X]
+
+## SoulDesc
+Reverses magic triangle and[N]
+doubles its effects.[X]

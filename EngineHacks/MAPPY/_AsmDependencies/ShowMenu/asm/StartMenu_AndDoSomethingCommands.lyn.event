@@ -1,0 +1,9 @@
+ALIGN 4
+PUSH
+ORG CURRENTOFFSET+$1;StartMenu_AndDoSomethingCommands:
+POP
+SHORT $B510 $F7FF $FAA3 $4907 $6809 $6288 $1C04 $2260 $5CA1 $2906 $D903 $4904 $468E
+BYTE $0 $F8
+SHORT $1C20 $BC10 $BC02 $4708
+POIN ReusableTempRAMPointer
+POIN StartMenu_AndDoSomethingCommandsCont

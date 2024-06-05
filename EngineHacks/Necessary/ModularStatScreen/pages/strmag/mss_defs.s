@@ -59,6 +59,7 @@
 .equ DrawItemOnStatscreen, 0x08016A2C
 .equ WriteTrvText, 0x080193E8
 .equ WriteStatusText, 0x08019414
+.equ WriteEffectText, 0x808C390 @this space is only available if a jumpToHack is done at 0x808C388
 .equ Statscreen_ClearBuffer, 0x08086DF0 @clears 2003c00 region
 .equ DrawStatscreenTextMap, 0x08086E00
 .equ Statscreen_StartLeftPanel, 0x08086E44
@@ -704,6 +705,18 @@
   mov     r1, #0
   blh     DrawUiSmallNumber
   NoStatusCount:
+.endm
+
+.macro draw_effect_text_at, tile_x, tile_y, colour=Blue  
+  draw_textID_at \tile_x, \tile_y, 0x4fa, width=9 @cond
+  
+  @do the rest of it somewhere else 
+  mov r3, r7
+  sub r3, #8
+  mov r0, r8
+  mov r1, #(\tile_x)
+  mov r2, #(\tile_y)
+  blh WriteEffectText, r4
 .endm
 
 .macro draw_affinity_icon_at, tile_x, tile_y

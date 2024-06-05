@@ -1,0 +1,89 @@
+
+PrepScreenDifficultyMapMenuList:
+//Chill
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenChangeToChill|1 //After selecting
+SHORT PS_Chill 0x0149 //Text ID; help text ID
+PrepScreenChillModeIDLink:
+BYTE 1 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+
+//Normal
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenChangeToNormal|1 //After selecting
+SHORT PS_Normal 0x014A //Text ID; help text ID
+PrepScreenNormalModeIDLink:
+BYTE 2 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+
+//Hard
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenChangeToHard|1 //After selecting
+SHORT PS_Hard 0x014B //Text ID; help text ID
+PrepScreenHardModeIDLink:
+BYTE 3 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+
+PS_Separator
+
+WORD 0
+
+#define UpdateReloadingChapterUnitTable(chapterID,eventPointer) "PUSH; ORG ReloadingChapterUnitsTable+(chapterID*4); POIN eventPointer; POP"
+
+ReloadingChapterUnitsTable:
+FILL 4 * 0x50
+
+
+
+//-------------------------------------------
+//WIZARD CHECKPOINT
+//Do not touch anything below unless you know what you're doing
+//-------------------------------------------
+
+
+
+#include "asm/PrepScreenDifficultyDisplay.lyn.event"
+ALIGN 4
+
+#include "asm/SetUpPrepScreenDifficultyMenu.lyn.event"
+ALIGN 4
+
+#include "asm/TransitionFromDifficultyMenuToPrepScreenMenu.lyn.event"
+ALIGN 4
+
+#include "asm/LoadNewDifficultyUnits.lyn.event"
+ALIGN 4
+
+#include "asm/DifficultyRestartPrepScreenMapMenu.lyn.event"
+ALIGN 4
+
+//Effect on selection
+	#include "asm/PrepScreenChangeToChill.lyn.event"
+	ALIGN 4
+	
+	#include "asm/PrepScreenChangeToNormal.lyn.event"
+	ALIGN 4
+	
+	#include "asm/PrepScreenChangeToHard.lyn.event"
+	ALIGN 4
+
+//Change text color routines
+	#include "asm/ChillModeColor.lyn.event"
+	ALIGN 4
+	
+	#include "asm/NormalModeColor.lyn.event"
+	ALIGN 4
+	
+	#include "asm/HardModeColor.lyn.event"
+	ALIGN 4
+
+gProc_DifficultySwap:
+PROC_CALL_ROUTINE(0x13D80|1) //StartFadeInBlackFast
+PROC_SLEEP(2)
+PROC_CALL_ROUTINE(LoadNewDifficultyUnits|1)
+PROC_SLEEP(3)
+PROC_CALL_ROUTINE(DifficultyRestartPrepScreenMapMenu)
+PROC_SLEEP(2)
+PROC_CALL_ROUTINE(0x13DA4|1) //StartFadeOutBlackFast
+PROC_SLEEP(0)
+PROC_END

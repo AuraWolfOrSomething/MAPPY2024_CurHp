@@ -1,0 +1,68 @@
+## IronBowName
+Iron Bow[X]
+
+## IronBowDesc
+ [X]
+
+## SteelBowName
+Steel Bow[X]
+
+## SteelBowDesc
+ [X]
+ 
+## SilverBowName
+Silver Bow[X]
+
+## SilverBowDesc
+ [X]
+
+## ShortBowName
+Short Bow[X]
+
+## ShortBowDesc
+ [X]
+
+## KillerBowName
+Killer Bow[X]
+
+## KillerBowDesc
+ [X]
+ 
+## BraveBowName
+Brave Bow[X]
+
+## BraveBowDesc
+Can perform consecutive attacks.[X]
+
+## BronzeBowName
+Bronze Bow[X]
+
+## BronzeBowDesc
++15 Dodge.[X]
+
+## LongbowName
+Longbow[X]
+
+## LongbowDesc
+ [X]
+
+## BallistaName
+Ballista[X]
+
+## BallistaDesc
+Winter only. Uses are restored[N]
+after the chapter.[X]
+
+## ArbalestName
+Arbalest[X]
+
+## ArbalestDesc
+Winter only. Uses are restored[N]
+after the chapter.[X]
+
+## PachydermName
+Pachyderm[X]
+
+## PachydermDesc
+Winter only. Uses are restored[N]
+after the chapter.[X]

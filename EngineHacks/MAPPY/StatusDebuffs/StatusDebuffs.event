@@ -1,0 +1,347 @@
+
+/*
+These effects don't actually exist yet, but they have space set aside:
+- Serpent Bow
+*/
+
+/*
+Long-Lost Friends Debuff Mapping
+First byte: Rustbow (low nibble), Inept (high nibble)
+Second: Lull Def/Res (low nibble), Shift (high nibble)
+Third: Slow (first bit), Distract (second bit), Serpent Bow (fifth bit)
+Fourth: Absorb (first bit)
+
+Fifth: Debuff half (low nibble), Debuff block (high nibble)
+Sixth: Rally (first bit-fourth bit), Guardian Def/Res (fifth bit)
+
+Seventh: Tracking Personal Skills with limited usage per chapter (low nibble)
+Eighth:
+
+*/
+
+//MiscData/StatScreenStatusDebuffSetUp & HelpText
+
+
+
+LastStatusInUseLink:
+BYTE 4 //Berserk
+ALIGN 4
+
+AnyBuffsBitfieldLink:
+WORD AnyBuffs
+
+AnyDebuffsBitfieldLink:
+WORD AnyDebuffs
+
+
+UnitDebuffEntryList:
+
+	//BYTE location bitUsage
+
+	//Rustbow
+	BYTE 0 0x0F
+
+	//Inept
+	BYTE 0 0xF0
+
+	//Lull
+	BYTE 1 0x0F
+
+	//Slow
+	BYTE 2 0x01
+
+	//Distract
+	BYTE 2 0x02
+
+	//End of list
+	SHORT 0xFFFF
+	ALIGN 4
+
+NegativeStatusExceptionList:
+//POIN IsGuardianNullifyActive
+WORD 0
+
+DebuffExceptionList:
+//POIN IsGuardianNullifyActive
+WORD 0
+
+DebuffHalvingList:
+POIN IsDebuffHalfActive
+WORD 0
+
+IsEffectActiveList:
+POIN IsAnyStatusActive
+POIN CountAllDebuffsActive
+POIN CountAllBuffsActive
+POIN CountOtherEffectsActive
+WORD 0
+
+DebuffCheckingList:
+POIN IsAbsorbDebuffActive
+POIN IsRustbowDebuffActive
+POIN IsIneptDebuffActive
+POIN IsLullDebuffActive
+POIN IsSlowDebuffActive
+POIN IsDistractDebuffActive
+WORD 0
+
+BuffCheckingList:
+//POIN IsGuardianNullifyActive
+POIN IsGuardianDamageActive
+POIN IsWardenActive
+POIN IsDebuffHalfActive
+POIN IsRallyActive
+WORD 0
+
+OtherEffectCheckingList:
+POIN IsShiftEffectActive
+//POIN IsInjuryActive
+WORD 0
+
+AbsorbDebuffNameLink:
+SHORT AbsorbDebuffName
+SHORT AbsorbDurationHelpText
+ALIGN 4
+
+InjuredConditionNameLink:
+SHORT InjuredConditionName
+SHORT InjuredConditionDuration
+ALIGN 4
+
+ConditionNormalHelpTextLink:
+SHORT ConditionNormalHelpText
+SHORT 0x536 //---
+ALIGN 4
+
+StatScreenStatusDebuffSetUp:
+
+	//first entry is unique
+	SHORT ConditionMultipleHelpText MultipleEffectsName //helpTextId nameTextID
+	SHORT 16 5 //number of entries (including this one); how many effects the unit must have for this page to appear
+
+	//SHORT helpTextID nameTextID
+	//POIN checkIfActiveOrTrue
+
+	/*
+	SHORT InjuredConditionHelpText InjuredConditionName
+	POIN IsInjuryActive
+	*/
+	
+	SHORT ConditionGuardianDamageHelpText GuardianDamageName
+	POIN IsGuardianDamageActive
+
+	SHORT ConditionGuardianHalfHelpText GuardianHalfName
+	POIN IsDebuffHalfActive
+
+	SHORT ConditionWardenHelpText WardenBuffName
+	POIN IsWardenActive
+
+	SHORT ConditionShiftHelpText ShiftEffectName
+	POIN IsShiftEffectActive
+
+	SHORT ConditionPoisonHelpText PoisonStatusName
+	POIN IsPoisonStatusActive
+
+	SHORT ConditionSleepHelpText SleepStatusName
+	POIN IsSleepStatusActive
+
+	SHORT ConditionSilenceHelpText SilenceStatusName
+	POIN IsSilenceStatusActive
+
+	SHORT ConditionBerserkHelpText BerserkStatusName
+	POIN IsBerserkStatusActive
+
+	SHORT ConditionAbsorbHelpText AbsorbDebuffName
+	POIN IsAbsorbDebuffActive
+
+	SHORT ConditionRustbowHelpText RustbowDebuffName
+	POIN IsRustbowDebuffActive
+
+	SHORT ConditionIneptHelpText IneptDebuffName
+	POIN IsIneptDebuffActive
+
+	SHORT ConditionLullHelpText LullDebuffName
+	POIN IsLullDebuffActive
+
+	SHORT ConditionSlowHelpText SlowDebuffName
+	POIN IsSlowDebuffActive
+
+	SHORT ConditionDistractHelpText DistractDebuffName
+	POIN IsDistractDebuffActive
+
+	SHORT ConditionRallyHelpText RallyBuffName
+	POIN IsRallyActive
+
+	WORD 0
+
+
+
+//-------------------------------------------
+//WIZARD CHECKPOINT
+//Do not touch anything below unless you know what you're doing
+//-------------------------------------------
+
+
+
+PUSH
+
+/*
+ORG 0x18858
+#include "asm/MapMain_UpdateUnitStatus.lyn.event"
+ALIGN 4
+PROTECT 0x18858 CURRENTOFFSET-1
+*/
+
+ORG 0x19414
+SHORT 0xB500 0x4902 //push {r14}; ldr r1, =GetUnitStatusString
+SHORT 0x468E 0xF800 //mov lr, r1; bl lr+0
+SHORT 0xBC02 0x4708 //pop {r1}; bx r1
+POIN GetUnitStatusString
+PROTECT 0x19414 CURRENTOFFSET-1
+
+ORG 0x8C388
+jumpToHack(MMB_DrawStatusText)
+
+ORG 0x8C390 //not needed, but easier to find
+#include "asm/SS_WriteEffect.lyn.event"
+ALIGN 4
+PROTECT 0x8C390 CURRENTOFFSET-1
+
+//shouldn't be needed (handled by MSS), but just in case
+ORG 0x88A2C
+jumpToHack(HelpBoxCurrentCondition)
+
+ORG 0x178D8
+jumpToHack(SetUnitNewStatus)
+
+POP
+
+#include "asm/MMB_DrawStatusText.lyn.event"
+ALIGN 4
+
+#include "asm/GetUnitStatusString.lyn.event"
+ALIGN 4
+
+#include "asm/CalculateDebuffDuration.lyn.event"
+ALIGN 4
+
+#include "asm/UnitInfoWindow_DrawDebuffDuration.lyn.event"
+ALIGN 4
+
+#include "asm/SetUnitNewStatus.lyn.event"
+ALIGN 4
+
+#include "asm/SetDebuffOrRemoveProtection.lyn.event"
+ALIGN 4
+
+#include "asm/AddDebuffOrRemoveProtection.lyn.event"
+ALIGN 4
+
+#include "asmAilmentCounterplay/AreNegativeStatusesEffective.lyn.event"
+ALIGN 4
+
+#include "asmAilmentCounterplay/AreDebuffsEffective.lyn.event"
+ALIGN 4
+
+#include "asmAilmentCounterplay/AreDebuffsHalved.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/CountActiveEffects.lyn.event"
+ALIGN 4
+
+
+//-----------------------------------
+//Statuses
+//-----------------------------------
+
+#include "asmIsEffectActive/IsAnyStatusActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsPoisonStatusActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsSleepStatusActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsSilenceStatusActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsBerserkStatusActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsPetrifyStatusActive.lyn.event"
+ALIGN 4
+
+
+//-----------------------------------
+//Debuffs
+//-----------------------------------
+
+#include "asmIsEffectActive/CountAllDebuffsActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsRustbowDebuffActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsIneptDebuffActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsLullDebuffActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsSlowDebuffActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsDistractDebuffActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsAbsorbDebuffActive.lyn.event"
+ALIGN 4
+
+
+//-----------------------------------
+//Buffs
+//-----------------------------------
+
+#include "asmIsEffectActive/CountAllBuffsActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsGuardianDamageActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsWardenActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsDebuffHalfActive.lyn.event"
+
+#include "asmIsEffectActive/IsRallyActive.lyn.event"
+ALIGN 4
+
+
+//-----------------------------------
+//Other
+//-----------------------------------
+
+#include "asmIsEffectActive/CountOtherEffectsActive.lyn.event"
+ALIGN 4
+
+#include "asmIsEffectActive/IsShiftEffectActive.lyn.event"
+ALIGN 4
+
+#include "asmSkillUsage/GetSkillUsageByte.lyn.event"
+ALIGN 4
+
+#include "asmSkillUsage/IncrementSkillUsage.lyn.event"
+ALIGN 4
+
+#include "asmSkillUsage/GetSkillUsageValue.lyn.event"
+ALIGN 4
+
+#include "asmSkillUsage/GetSkillUsageOffsetForUnit.lyn.event"
+ALIGN 4
+
+#include "asmSkillUsage/AreSkillUsesRemaining.lyn.event"
+ALIGN 4
+
+#include "asmSkillUsage/ResetSkillUsage.lyn.event"
+ALIGN 4

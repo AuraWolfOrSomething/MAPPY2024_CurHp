@@ -13,9 +13,15 @@
 #include "_Common.event"
 
 #include "_asm/Bitpack.lyn.event" 
-#include "_asm/HalfStatFunctions.lyn.event" 
+//#include "_asm/HalfStatFunctions.lyn.event" 
 #include "_asm/RallyStat.lyn.event" 
-#include "_asm/DebuffStat.lyn.event" 
+//#include "_asm/DebuffStat.lyn.event" 
+
+#include "_asm/LlfDebuffStat.lyn.event"
+ALIGN 4
+
+#include "_asm/MaxMovCap.lyn.event"
+ALIGN 4
 
 #include "MaxHP.event"
 #include "CurHP.event"

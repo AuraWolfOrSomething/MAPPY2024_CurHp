@@ -1,0 +1,284 @@
+
+ChapterUndoTable:
+
+//Chapter ids 0x00-0x0F
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+
+//Chapter ids 0x10-0x1F
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+
+//Chapter ids 0x20-0x2F
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+
+//Chapter ids 0x30-0x3F
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+
+//Chapter ids 0x40-0x4F
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+BYTE 3 3 3 3
+ALIGN 4
+
+
+PUSH
+
+//Stops extra save to suspend from happening on the very first turn
+ORG 0x59A278
+PROC_SLEEP(0)
+
+POP
+
+
+//Status:
+//byte 0: uses
+//byte 1: state (0 = Undo can be used, 1 = Undo cannot be used, 2 = do not update Undo data or Suspend1, 3 = Undo cannot be used, do not update Suspend1)
+
+UndoStatusRAMPointer:
+WORD UndoStatusRAMLoc
+
+UndoDataRAMPointer:
+WORD UndoDataRAMLoc
+
+UndoCopyListTotalSizePointer:
+SHORT 0x17FC
+
+UndoCopyListNonUnitSizePointer:
+SHORT 0x08E8
+//UnitSize (and any misc stuff we want to save): 0x0F14
+
+UndoDenyEffectTextLink:
+SHORT UndoDenyEffectText
+
+ALIGN 4
+
+#define UndoID_CharClass 0x01
+#define UndoID_MaxHP 0x02
+#define UndoID_Pow 0x03
+#define UndoID_Injury 0x04
+#define UndoID_Skl 0x05
+#define UndoID_Spd 0x06
+#define UndoID_Def 0x07
+#define UndoID_Res 0x08
+#define UndoID_Lck 0x09
+#define UndoID_ConBonus 0x0A
+	#define UndoID_Con UndoID_ConBonus
+#define UndoID_MovBonus 0x0B
+	#define UndoID_Mov UndoID_MovBonus
+#define UndoID_LvExpPos 0x0C
+#define UndoID_WEXP 0x0D
+#define UndoID_Support 0x0E
+#define UndoID_Inventory 0x0F
+#define UndoID_State 0x10
+#define UndoID_CurHP 0x11
+#define UndoID_Rescue 0x12
+#define UndoID_Ballista 0x13
+#define UndoID_Status 0x14
+#define UndoID_TorchBarrier 0x15
+#define UndoID_AI 0x16
+#define UndoID_PlayerUnit 0x17
+#define UndoID_EnemyUnit 0x18
+#define UndoID_NPCUnit 0x19
+#define UndoID_Debuff 0x1A
+
+#define UndoID_AllMisc 0xFF
+
+UndoEntrySizeTable:
+
+	#define UndoEntrySize(id,size) "ORG UndoEntrySizeTable+id; BYTE size"
+
+	{
+	#define BaseSize 2
+	
+	//size = undoId + unitId + dataToBeStored
+	
+	UndoEntrySize(UndoID_CharClass,BaseSize+2)
+	UndoEntrySize(UndoID_MaxHP,BaseSize+1)
+	UndoEntrySize(UndoID_Pow,BaseSize+1)
+	UndoEntrySize(UndoID_Injury,BaseSize+1)
+	UndoEntrySize(UndoID_Skl,BaseSize+1)
+	UndoEntrySize(UndoID_Spd,BaseSize+1)
+	UndoEntrySize(UndoID_Def,BaseSize+1)
+	UndoEntrySize(UndoID_Res,BaseSize+1)
+	UndoEntrySize(UndoID_Lck,BaseSize+1)
+	UndoEntrySize(UndoID_ConBonus,BaseSize+1)
+	UndoEntrySize(UndoID_MovBonus,BaseSize+1)
+	UndoEntrySize(UndoID_LvExpPos,BaseSize+3)
+	UndoEntrySize(UndoID_WEXP,BaseSize+8)
+	UndoEntrySize(UndoID_Support,BaseSize+7)
+	UndoEntrySize(UndoID_Inventory,BaseSize+10)
+	UndoEntrySize(UndoID_State,BaseSize+4)
+	UndoEntrySize(UndoID_CurHP,BaseSize+1)
+	UndoEntrySize(UndoID_Rescue,BaseSize+1)
+	UndoEntrySize(UndoID_Ballista,BaseSize+1)
+	UndoEntrySize(UndoID_Status,BaseSize+1)
+	UndoEntrySize(UndoID_TorchBarrier,BaseSize+1)
+	UndoEntrySize(UndoID_AI,BaseSize+7)
+	UndoEntrySize(UndoID_PlayerUnit,BaseSize+0x34)
+	UndoEntrySize(UndoID_EnemyUnit,BaseSize+0x38)
+	UndoEntrySize(UndoID_NPCUnit,BaseSize+0x38)
+	UndoEntrySize(UndoID_Debuff,BaseSize+8)
+	
+	//Add up the size of each data entry not covered by PlayerUnit/EnemyUnit/NPCUnit (e.g. debuffs); remember to include undoID & unitID for each one 
+	//I don't think I'm actually using this lol
+	UndoEntrySize(UndoID_AllMisc,BaseSize+8)
+	
+	}
+	
+ORG UndoEntrySizeTable+256
+
+UndoEMS_CopyFunctionList:
+POIN UndoEMS_CopyCharClass UndoEMS_CopyMaxHP UndoEMS_CopyPow UndoEMS_CopyInjury UndoEMS_CopySkl UndoEMS_CopySpd UndoEMS_CopyDef UndoEMS_CopyRes UndoEMS_CopyLck UndoEMS_CopyConBonus UndoEMS_CopyMovBonus UndoEMS_CopyLvExpPos UndoEMS_CopyWEXP UndoEMS_CopySupport UndoEMS_CopyInventory UndoEMS_CopyState
+POIN UndoEMS_CopyCurHP UndoEMS_CopyRescue UndoEMS_CopyBallista UndoEMS_CopyStatus UndoEMS_CopyTorchBarrier UndoEMS_CopyAI
+WORD 0
+
+UndoEMS_CopyMiscFunctionList:
+POIN UndoEMS_CopyPlayerDebuffs TeamDebuffTables
+POIN UndoEMS_CopyEnemyDebuffs TeamDebuffTables+8
+POIN UndoEMS_CopyNPCDebuffs TeamDebuffTables+4
+WORD 0
+
+Undo_RetrieveFunctionTable:
+WORD 0
+
+POIN Undo_RetrieveCharClass
+POIN Undo_RetrieveMaxHP
+POIN Undo_RetrievePow
+POIN Undo_RetrieveInjury
+POIN Undo_RetrieveSkl
+POIN Undo_RetrieveSpd
+POIN Undo_RetrieveDef
+POIN Undo_RetrieveRes
+POIN Undo_RetrieveLck
+POIN Undo_RetrieveConBonus
+POIN Undo_RetrieveMovBonus
+POIN Undo_RetrieveLvExpPos
+POIN Undo_RetrieveWEXP
+POIN Undo_RetrieveSupport
+POIN Undo_RetrieveInventory
+POIN Undo_RetrieveState
+POIN Undo_RetrieveCurHP
+POIN Undo_RetrieveRescue
+POIN Undo_RetrieveBallista
+POIN Undo_RetrieveStatus
+POIN Undo_RetrieveTorchBarrier
+POIN Undo_RetrieveAI
+POIN Undo_RetrieveWhole //Undo_RetrievePlayer
+POIN Undo_RetrieveWhole //Undo_RetrieveEnemy
+POIN Undo_RetrieveWhole //Undo_RetrieveNPC
+POIN Undo_RetrieveDebuffs
+WORD 0
+
+Undo_RetrieveFunctionWholeList:
+POIN Undo_RetrieveCharClass Undo_RetrieveMaxHP Undo_RetrievePow Undo_RetrieveInjury Undo_RetrieveSkl Undo_RetrieveSpd Undo_RetrieveDef Undo_RetrieveRes Undo_RetrieveLck Undo_RetrieveConBonus Undo_RetrieveMovBonus Undo_RetrieveLvExpPos Undo_RetrieveWEXP Undo_RetrieveSupport Undo_RetrieveInventory Undo_RetrieveState
+POIN Undo_RetrieveCurHP Undo_RetrieveRescue Undo_RetrieveBallista Undo_RetrieveStatus Undo_RetrieveTorchBarrier
+WORD 0
+
+Undo_RetrieveFunctionPlayerOnly:
+WORD 0
+
+Undo_RetrieveFunctionOtherOnly:
+POIN Undo_RetrieveAI
+WORD 0
+
+Undo_RetrieveFunctionNonUnitList:
+//WORD locationToStore
+//SHORT size initialCounterValue
+
+//chapter state
+WORD 0x0202BCF0
+SHORT 0x004C 4 //0 will reset clock
+
+//action state
+WORD 0x0203A958
+SHORT 0x0038 0
+
+//dungeon state
+WORD 1
+//WORD 0x030017AC
+SHORT 0x0018 0
+
+//trap data
+WORD 0x0203A614
+SHORT 0x0200 0
+
+//BWL
+WORD 0x0203E894
+SHORT 0x0460 0
+
+//previous chapter data
+WORD 0x0203ECF4
+SHORT 0x00C0 0
+
+//menu related list
+WORD 1 //ingame routine is weird
+SHORT 0x0010 0
+
+//permanent event ids
+WORD 0x03005250
+SHORT 0x0019 0
+
+//temporary event ids
+WORD 0x03005270
+SHORT 0x0005 0
+
+//alignment
+WORD 1
+SHORT 0x0002 0
+
+//world map
+WORD 1
+//WORD 0x03005280 //this should be right, but the actual ingame routine is weird
+SHORT 0x0024 0
+
+//dungeon state
+WORD 1
+//WORD 0x030017A0 //this should be right, but the actual ingame routine is weird
+SHORT 0x000C 0
+
+//event counters
+WORD 0x03000568
+SHORT 0x0004 0
+
+//convoy
+WORD ConvoyExpansionRAM
+SHORT 0x00C8 0
+
+//End of the list
+WORD 0
+
+#include "asm/UndoEMS.lyn.event"
+ALIGN 4
+
+#include "asm/UndoEMS_CopyFunctions.lyn.event"
+ALIGN 4
+
+#include "asm/UndoEMS_CopyMiscFunctions.lyn.event"
+ALIGN 4
+
+#include "asm/Undo_Retrieve.lyn.event"
+ALIGN 4
+
+#include "asm/Undo_RetrieveFunctions.lyn.event"
+ALIGN 4
+
+#include "asm/Undo_RetrieveMiscFunctions.lyn.event"
+ALIGN 4
+
+#include "asm/SetUndoInitialStatus.lyn.event"
+ALIGN 4
+
+#include "asm/UndoMapMenu.lyn.event"
+ALIGN 4

@@ -1,0 +1,38 @@
+//"PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0xDEADBEEF; BYTE/SHORT/WORD; POP"
+
+#define ChapterEditorTable 0x8B0890
+#define ChapterAiItemUsageTable 0xD8538
+
+#define ChpEdtChpNum(chapterId,value) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x80; BYTE value; POP"
+
+#define ChpEdtFadeBlack(chapterId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x87; BYTE 1; POP"
+#define ChpEdtFadeMap(chapterId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x87; BYTE 0; POP"
+#define ChpEdtInitCoords(chapterId,initX,initY) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x10; BYTE initX initY; POP"
+
+#define ChpEdtAutolevels(chapterId,autolevels) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x14; SHORT autolevels; POP"
+
+#define ChpEdtTerrainHp(chapterId,terrainHp) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x2C; BYTE terrainHp; POP"
+
+#define ChpEdtObjectiveDefeatBoss(chapterId,statusTextId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x88; SHORT statusTextId 0x19D; BYTE 3; POP"
+#define ChpEdtObjectiveRout(chapterId,statusTextId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x88; SHORT statusTextId 0x19E; BYTE 1; POP"
+#define ChpEdtObjectiveSeizeGate(chapterId,statusTextId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x88; SHORT statusTextId 0x19F; BYTE 0; POP"
+#define ChpEdtObjectiveSeizeThrone(chapterId,statusTextId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x88; SHORT statusTextId 0x1A1; BYTE 0; POP"
+#define ChpEdtObjectiveOther(chapterId,statusTextId,objectiveTextId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x88; SHORT statusTextId objectiveTextId; BYTE 0; POP"
+
+#define ChpEdtMiniObjective(chapterId,miniObjectiveId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x8C; BYTE miniObjectiveId; POP"
+#define ChpEdtTurnTimer(chapterId,turnTimer) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x8D; BYTE turnTimer+1; POP"
+#define ChpEdtSpecialUnit(chapterId,unitId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x8E; BYTE unitId; POP"
+
+#define ChpEdtAiItemUsage(chapterId,value) "PUSH; ORG ChapterAiItemUsageTable+(chapterId*0x04); BYTE value; POP"
+//value: bitfield (0 = no items, 1 = door key enabled, 2 = lockpick enabled, 4 = antitoxin enabled)
+
+#define ChpEdtMusicPlayer(chapterId,songId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x16; SHORT songId; POP"
+#define ChpEdtMusicEnemy(chapterId,songId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x18; SHORT songId; POP"
+#define ChpEdtMusicNPC(chapterId,songId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x1A; SHORT songId; POP"
+#define ChpEdtMusicPlayer2(chapterId,songId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x1C; SHORT songId; POP"
+#define ChpEdtMusicEnemy2(chapterId,songId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x1E; SHORT songId; POP"
+#define ChpEdtMusicNPC2(chapterId,songId) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x20; SHORT songId; POP"
+
+#define ChpEdtVictoryThemeThreshold(chapterId,value) "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x86; BYTE value; POP"
+#define ChpEdtMusicFlag4Player(chapterId,songId)  "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x22; SHORT songId; POP"
+#define ChpEdtMusicFlag4Enemy(chapterId,songId)  "PUSH; ORG ChapterEditorTable+(chapterId*0x94)+0x24; SHORT songId; POP"

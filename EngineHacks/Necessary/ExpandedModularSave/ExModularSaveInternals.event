@@ -16,6 +16,7 @@ gMS_WMDataChunkId:        BYTE EMS_CHUNK_WMDATA
 
 #include "SrcCore/MSSizeHook.lyn.event"
 #include "SrcCore/MSBWLHook.lyn.event"
+#include "SrcModules/NoThirdSaveSlot.event"
 
 PUSH
 	// Checksum computation function now returns a constant
@@ -45,6 +46,9 @@ PUSH
 
 	// Replace SaveSuspendedGame
 	ORG $0A5A48
+		#include "SrcModules/SaveSuspendConditions.lyn.event"
+		
+		SaveSuspendNoConditions:
 		LynJump(MS_SaveSuspend)
 
 	// Replace LoadSuspendedGame

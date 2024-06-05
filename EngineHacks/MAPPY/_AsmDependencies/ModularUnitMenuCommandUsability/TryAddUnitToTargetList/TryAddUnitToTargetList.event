@@ -1,0 +1,271 @@
+
+HealingStaffTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+POIN TargetCheckBeingRescued
+POIN TargetCheckHasLessThanMaxHp
+//POIN CannotIfTargetHasShade
+WORD 0
+
+FortifyStaffTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+POIN TargetCheckBeingRescued
+POIN TargetCheckHasLessThanMaxHp
+WORD 0
+
+WarpStaffTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+//POIN CannotIfTargetHasShade
+WORD 0
+
+RescueStaffTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+//POIN CannotIfTargetHasShade
+WORD 0
+
+HammerneStaffTargetConditionsList:
+POIN TargetCheckAreAllegiancesEqual
+POIN TargetCheckAnyHammerneableItems
+//POIN CannotIfTargetHasShade
+WORD 0
+
+BarrierStaffTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+POIN TargetCheckBeingRescued
+POIN TargetCheckBarrierMaxDuration
+//POIN CannotIfTargetHasShade
+WORD 0
+
+RescueCommandTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+POIN EitherUnitCheckPhantom
+POIN TargetCheckBerserk
+POIN TargetCheckTraveling
+POIN 0x1831C //CanUnitRescue
+//POIN CannotIfTargetHasShade
+//POIN UncooperativeSkill
+//POIN HeavyHoveringBootsOnEitherUnit
+WORD 0
+
+GiveTargetConditionsList:
+POIN TargetCheckAreAllegiancesAllied
+POIN TargetCheckRescuing
+POIN TargetCheckBerserk
+POIN TargetCheckSleep
+POIN TargetCheckSupplyBit
+POIN TargetCheckAidVsCarriedUnitCon
+//POIN CannotIfTargetHasShade
+WORD 0
+
+TradeTargetConditionsList:
+POIN EitherUnitCheckPhantom
+POIN TargetCheckBerserk
+POIN BothUnitsCheckEmptyInventory
+POIN TargetCheckSupplyBit
+//POIN CannotIfTargetHasShade
+WORD 0
+
+TradeTargetExceptionsList:
+//SHORT chapterID unitID
+//POIN routineForMoreConditions OR WORD 0 if no other conditions
+
+//end of list
+WORD 0
+
+TradeTargetRescueeConditionsList:
+POIN TargetCheckTradeRescueeAllegiance
+POIN BothUnitsCheckEmptyInventory
+WORD 0
+
+
+//-------------------------------------------
+//WIZARD CHECKPOINT
+//Do not touch anything below unless you know what you're doing
+//-------------------------------------------
+
+
+
+PUSH
+
+//Staves
+
+	ORG 0x25E28
+	SHORT 0xB500 //push {r14}
+	SHORT 0x4903 //ldr r1, =HealingStaffTargetConditionsList
+	SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+	SHORT 0x4696 //mov lr, r2
+	SHORT 0xF800 //bl lr+0
+	SHORT 0xBC01 //pop {r0}
+	SHORT 0x4700 0 //bx r0
+	POIN HealingStaffTargetConditionsList
+	POIN TryAddUnitToTargetList
+	PROTECT 0x25E28 CURRENTOFFSET-1
+
+	ORG 0x28AAC
+	SHORT 0x4902 0x1C20 //ldr r2, =FortifyStaff_RangeSetup ; mov r0, r4
+	SHORT 0x1C2A //mov r2, r5
+	BL(0x29068) //IsGeneratedTargetListEmpty
+	SHORT 0xE0A2 //b (0x28BFE)
+	POIN FortifyStaff_RangeSetup|1
+	PROTECT 0x28AAC CURRENTOFFSET-1
+
+	ORG Target_Routine_For_Fortify
+	SHORT 0xB500 0x7CA1 0x0049 0x311E 0x1809 0x880A
+	BL(FortifyStaff_RangeSetup)
+	SHORT 0xBC01 0x4700
+	PROTECT Target_Routine_For_Fortify CURRENTOFFSET-1
+
+	ORG 0x2625C
+	SHORT 0xB500 //push {r14}
+	SHORT 0x4903 //ldr r1, =WarpStaffTargetConditionsList
+	SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+	SHORT 0x4696 //mov lr, r2
+	SHORT 0xF800 //bl lr+0
+	SHORT 0xBC01 //pop {r0}
+	SHORT 0x4700 0 //bx r0
+	POIN WarpStaffTargetConditionsList
+	POIN TryAddUnitToTargetList
+	PROTECT 0x2625C CURRENTOFFSET-1
+
+	ORG 0x260A0
+	SHORT 0xB500 //push {r14}
+	SHORT 0x4903 //ldr r1, =RescueStaffTargetConditionsList
+	SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+	SHORT 0x4696 //mov lr, r2
+	SHORT 0xF800 //bl lr+0
+	SHORT 0xBC01 //pop {r0}
+	SHORT 0x4700 0 //bx r0
+	POIN RescueStaffTargetConditionsList
+	POIN TryAddUnitToTargetList
+	PROTECT 0x260A0 CURRENTOFFSET-1
+	
+	ORG 0x2601C
+	SHORT 0xB500 //push {r14}
+	SHORT 0x4903 //ldr r1, =BarrierStaffTargetConditionsList
+	SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+	SHORT 0x4696 //mov lr, r2
+	SHORT 0xF800 //bl lr+0
+	SHORT 0xBC01 //pop {r0}
+	SHORT 0x4700 0 //bx r0
+	POIN BarrierStaffTargetConditionsList
+	POIN TryAddUnitToTargetList
+	PROTECT 0x2601C CURRENTOFFSET-1
+	
+	ORG 0x262FC
+	SHORT 0xB500 //push {r14}
+	SHORT 0x4903 //ldr r1, =BarrierStaffTargetConditionsList
+	SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+	SHORT 0x4696 //mov lr, r2
+	SHORT 0xF800 //bl lr+0
+	SHORT 0xBC01 //pop {r0}
+	SHORT 0x4700 0 //bx r0
+	POIN HammerneStaffTargetConditionsList
+	POIN TryAddUnitToTargetList
+	PROTECT 0x262FC CURRENTOFFSET-1
+
+
+ORG 0x25344
+SHORT 0xB500 //push {r14}
+SHORT 0x4903 //ldr r1, =RescueCommandTargetConditionsList
+SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+SHORT 0x4696 //mov lr, r2
+SHORT 0xF800 //bl lr+0
+SHORT 0xBC01 //pop {r0}
+SHORT 0x4700 0 //bx r0
+POIN RescueCommandTargetConditionsList
+POIN TryAddUnitToTargetList
+PROTECT 0x25344 CURRENTOFFSET-1
+
+ORG 0x25514
+SHORT 0xB500 //push {r14}
+SHORT 0x4903 //ldr r1, =GiveTargetConditionsList
+SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+SHORT 0x4696 //mov lr, r2
+SHORT 0xF800 //bl lr+0
+SHORT 0xBC01 //pop {r0}
+SHORT 0x4700 0 //bx r0
+POIN GiveTargetConditionsList
+POIN TryAddUnitToTargetList
+PROTECT 0x25514 CURRENTOFFSET-1
+
+ORG 0x2521C
+#include "asm/TryAddUnitToTradeTargetList.lyn.event"
+ALIGN 4
+PROTECT 0x2521C CURRENTOFFSET-1
+//Commented Capture callHack_r3(Trade_Captured_Enemy1) and callHack_r3(Trade_Captured_Enemy2)
+
+POP
+
+FortifyStaff_RangeSetup:
+SHORT 0xB500 0x4902 //push {r14}; ldr r1, =TryAddUnitToFortifyTargetList
+BL(Item_TURange)
+SHORT 0xBC08 0x4718 //pop {r3}; bx r3
+POIN TryAddUnitToFortifyTargetList|1
+
+TryAddUnitToFortifyTargetList:
+SHORT 0xB500 //push {r14}
+SHORT 0x4903 //ldr r1, =FortifyStaffTargetConditionsList
+SHORT 0x4A03 //ldr r2, =TryAddUnitToTargetList
+SHORT 0x4696 //mov lr, r2
+SHORT 0xF800 //bl lr+0
+SHORT 0xBC01 //pop {r0}
+SHORT 0x4700 0 //bx r0
+POIN FortifyStaffTargetConditionsList
+POIN TryAddUnitToTargetList
+PROTECT TryAddUnitToFortifyTargetList CURRENTOFFSET-1
+
+#include "asm/TryAddUnitToTargetList.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckAreAllegiancesAllied.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckAreAllegiancesEqual.lyn.event"
+ALIGN 4
+
+#include "asm/EitherUnitCheckPhantom.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckSleep.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckBerserk.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckPetrify.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckTraveling.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckRescuing.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckBeingRescued.lyn.event"
+ALIGN 4
+
+#include "asm/BothUnitsCheckEmptyInventory.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckSupplyBit.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckTradeRescueeAllegiance.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckCannotIfRescuedUnit.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckAnyNegativeStatusDebuffNotAbsorb.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckHasLessThanMaxHp.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckBarrierMaxDuration.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckAnyHammerneableItems.lyn.event"
+ALIGN 4
+
+#include "asm/TargetCheckAidVsCarriedUnitCon.lyn.event"
+ALIGN 4

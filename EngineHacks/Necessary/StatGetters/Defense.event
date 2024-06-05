@@ -5,8 +5,8 @@
 
 pDefenseModifiers: // Defense
 	POIN prAddUnitDefense prHalveIfCapturing 
-	POIN prDebuffDef StrongCon PlusAura MinusAura
-	POIN prAddEquipDefense prItemPassiveDefense prRallyDef prLifeAndDeathMinus VigorDanceCheck prSkillFury prFortressDefenseDef prDefiantDef prPushDef
+	POIN LlfDebuffDef //prDebuffDef StrongCon PlusAura MinusAura
+	POIN prAddEquipDefense prItemPassiveDefense prRallyDef //prLifeAndDeathMinus VigorDanceCheck prSkillFury prFortressDefenseDef prDefiantDef prPushDef
 	#ifdef DEBUFFS_MIN_ZERO
 	POIN prMinZero
 	#endif
@@ -19,8 +19,10 @@ prAddEquipDefense:
 	rAdd(rForUnitEquipped(rCallExternal(prGetItemDefBonus)))
 
 	
+/*
 prFortressDefenseDef:
 	_testSkill(FortressDefenseID,5,0)
+*/
 
 prItemPassiveDefense:
 #ifndef DONT_STACK_BOOSTS

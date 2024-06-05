@@ -1,0 +1,42 @@
+## FluxName
+Flux[X]
+
+## FluxDesc
+ [X]
+
+## LunaName
+Luna[X]
+
+## LunaDesc
+Negates enemy Res.[X]
+
+## NosferatuName
+Nosferatu[X]
+
+## NosferatuDesc
+Steals enemy HP.[X]
+
+## FenrirName
+Fenrir[X]
+
+## FenrirDesc
+ [X]
+
+## DevourName
+Devour[X]
+
+## DevourDesc
+Long-range magic attack.[X]
+
+## WormName
+Worm[X]
+
+## WormDesc
+ [X]
+
+## TruthName
+Truth[X]
+
+## TruthDesc
+Reverses magic triangle and[N]
+doubles its effects.[X]

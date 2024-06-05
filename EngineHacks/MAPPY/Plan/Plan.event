@@ -1,0 +1,46 @@
+
+//Credit to Vesly for his DebugPlaceUnits assembly
+
+//Look at Events to see how they interact with planning (particularly the EndingScene and Reinforcement Warnings for a chapter) 
+
+#include "PlanInternal.event"
+
+
+FutureNoMoreTurnEventsEvent:
+TUTORIALTEXTBOXSTART
+SETVAL 0xB 0xFFFFFFFF
+TEXTSHOW FutureNoMoreTurnEventsText
+TEXTEND
+REMA
+NoFade
+ENDA
+
+DoNotWinIfPlanningEvent:
+CHECK_EVENTID WinWhilePlanningEventID
+IFEQ 0x1 0xC 0x0
+
+	ENUT WinWhilePlanningEventID
+	TUTORIALTEXTBOXSTART
+	SETVAL 0xB 0xFFFFFFFF
+	TEXTSHOW WinWhilePlanningText
+	TEXTEND
+	REMA
+	
+LABEL 0x1
+NoFade
+ENDA
+
+DoNotLoseIfPlanningEvent:
+CHECK_EVENTID LoseWhilePlanningEventID
+IFEQ 0x1 0xC 0x0
+
+	ENUT LoseWhilePlanningEventID
+	TUTORIALTEXTBOXSTART
+	SETVAL 0xB 0xFFFFFFFF
+	TEXTSHOW LoseWhilePlanningText
+	TEXTEND
+	REMA
+	
+LABEL 0x1
+NoFade
+ENDA

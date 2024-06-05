@@ -32,10 +32,10 @@
  
   PUSH
     ORG 0x205b24 //24 for stat screen
-      POIN MSS_page1|1 MSS_page2|1 MSS_page3|1 MSS_page4|1
+      POIN MSS_page1|1 MSS_page2|1 MSS_page3|1 //MSS_page4|1
 
     ORG $88690
-      BYTE 4 //make 4 pages
+      BYTE 3 //make 3 pages
 	  
     ORG $88650
       POIN NewPageNameGraphic
@@ -136,14 +136,54 @@
   #ifdef LEADERSHIP_STARS
 	#include "pages/strmag/mss_page1_skills_leadership.lyn.event"
   #else // LEADERSHIP_STARS
-	#include "pages/strmag/mss_page1_skills.lyn.event"
+	//#include "pages/strmag/mss_page1_skills.lyn.event"
+	#include "pages/strmag/mss_page1_LLF.lyn.event"
   #endif // LEADERSHIP_STARS  
   
   #endif // USE_STRMAG_SPLIT
   
   #ifdef QOL_STAT_SCREEN_BALLISTA
   
-    #include "pages/mss_page2_ballista.lyn.event"
+    //#include "pages/mss_page2_ballista.lyn.event"
+	#include "pages/mss_page2_LLF.lyn.event"
+	
+	AttackSpeedTextLabelLink:
+	SHORT 0x0504
+	SHORT 0
+	
+	Page2StatBoxSetup:
+	//AS
+	WORD 0x02003CDC 0x02003FF0 //where the text will be
+	BYTE 3 6 0 0
+	POIN AttackSpeedTextLabelLink //pointer to text id
+	
+	//Atk
+	WORD 0x02003CBC 0x02004070 //where the text will be
+	BYTE 3 6 0 0
+	POIN 0xA01198 //pointer to text id
+	
+	//Hit
+	WORD 0x02003CC4 0x020040F0 //where the text will be
+	BYTE 3 6 0 0
+	POIN 0xA0119C //pointer to text id
+	
+	//Range
+	WORD 0x02003CB4 0x02003FFE //where the text will be
+	BYTE 3 6 0 0
+	POIN 0xA01194 //pointer to text id
+	
+	//Crit
+	WORD 0x02003CCC 0x0200407E //where the text will be
+	BYTE 3 6 0 0
+	POIN 0xA011A0 //pointer to text id
+	
+	//Avoid
+	WORD 0x02003CD4 0x020040FE //where the text will be
+	BYTE 3 6 0 0
+	POIN 0xA011A4 //pointer to text id
+	
+	//Seperator
+	WORD 0 0 0 0
 
   #else  // QOL_STAT_SCREEN_BALLISTA
   
@@ -179,7 +219,7 @@
       String("Donate to Circles")
       BYTE 0
 
-    setText(0x0D4B,TxtData0x0D4B)
+    //setText(0x0D4B,TxtData0x0D4B)
   
   #endif // ENABLE_PERSONAL_INFO
   

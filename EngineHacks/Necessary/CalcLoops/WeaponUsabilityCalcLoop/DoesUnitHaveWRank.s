@@ -3,7 +3,8 @@
 
 @formerly in CanUnitWieldWeapon, this adds compatibility for things that happen before WRank check (i.e. weapon locks) and needs lumina/shadowgift to happen after
 
-.equ SkillTester,ItemTable+4
+.equ WeaponRankModifierLoop, ItemTable+4
+.equ SkillTester,WeaponRankModifierLoop+4
 .equ ShadowgiftID, SkillTester+4
 .equ LuminaID, ShadowgiftID+4
 .equ ShadowgiftStaffOption, LuminaID+4
@@ -14,7 +15,14 @@ push {r4-r7,r14}
 
 mov r4,r0 @character pointer
 mov r5,r1 @item halfword
-mov r6,r2 @rank
+@mov r6,r2 @rank
+
+@get unit's current wrank
+mov r1, r2
+ldr r2, WeaponRankModifierLoop @in EngineHacks/_RS
+mov lr, r2
+.short 0xF800
+mov r6,r0 @rank
 
 @get item's wrank requirement
 mov r0,r5

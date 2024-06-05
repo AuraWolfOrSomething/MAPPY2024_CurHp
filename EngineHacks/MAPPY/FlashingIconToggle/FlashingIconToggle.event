@@ -1,0 +1,49 @@
+
+//Toggles functionality of DisplayObtainableItem asm
+
+DropIconToggleEventIDLink:
+#ifdef DropIconToggleEventID
+	SHORT DropIconToggleEventID
+#else
+	MESSAGE No event ID for Drop Icon Toggle has been defined. 0xBA is used as a default.
+	SHORT 0xBA
+#endif
+
+#include "asm/DropIconStatus.lyn.event"
+ALIGN 4
+
+#include "asm/DropIconColor.lyn.event"
+ALIGN 4
+
+#include "asm/DropIconToggle.lyn.event"
+ALIGN 4
+
+#include "asm/MapMenuDropIconToggle.lyn.event"
+ALIGN 4
+
+#include "asm/MapMenuDropIconColor.lyn.event"
+ALIGN 4
+
+
+BossIconToggleEventIDLink:
+#ifdef BossIconToggleEventID
+	SHORT BossIconToggleEventID
+#else
+	MESSAGE No event ID for Boss Icon Toggle has been defined. 0xBB is used as a default.
+	SHORT 0xBB
+#endif
+
+#include "asm/BossIconStatus.lyn.event"
+ALIGN 4
+
+#include "asm/BossIconColor.lyn.event"
+ALIGN 4
+
+#include "asm/BossIconToggle.lyn.event"
+ALIGN 4
+
+#include "asm/MapMenuBossIconToggle.lyn.event"
+ALIGN 4
+
+#include "asm/MapMenuBossIconColor.lyn.event"
+ALIGN 4

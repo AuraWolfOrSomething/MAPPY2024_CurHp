@@ -1,0 +1,9 @@
+ALIGN 4
+PUSH
+ORG CURRENTOFFSET+$1;TryAddUnitToDistractTargetList:
+POP
+SHORT $B500 $4903 $4A03 $4696
+BYTE $0 $F8
+SHORT $BC01 $4700 $46C0
+POIN DistractStaffTargetConditionsList
+POIN TryAddUnitToTargetList

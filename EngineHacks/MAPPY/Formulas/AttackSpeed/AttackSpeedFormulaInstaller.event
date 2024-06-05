@@ -1,0 +1,12 @@
+PUSH
+
+ORG 0x2AB74
+#include "AttackSpeedFormulaParameters.lyn.event"
+ALIGN 4
+PROTECT 0x2AB74 CURRENTOFFSET-1
+
+POP
+
+#include "AttackSpeedFormula.lyn.event"
+ALIGN 4
+

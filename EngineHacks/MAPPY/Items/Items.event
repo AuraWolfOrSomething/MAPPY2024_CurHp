@@ -1,0 +1,188 @@
+
+#include "_ItemData/_ItemData.event"
+ALIGN 4
+
+#include "Warden/asm/RemoveWardenBuffOnUnit.lyn.event"
+ALIGN 4
+
+
+//15 hp vulnerary
+
+	PUSH
+	ORG 0x2FEC6
+	BYTE 15
+	POP
+
+//Spd boosts
+
+	HatchetSpd:
+	LusterSpd:
+	defStatBoosts(0,0,0,0,3,0,0,0)
+	BYTE 0
+	
+	ALIGN 4
+
+//Gems
+
+	PupilGemLink:
+	BYTE PupilGem
+	
+	RookieGemLink:
+	BYTE RookieGem
+	
+	RookieGemLck:
+	defStatBoosts(0,0,0,0,0,3,0,0)
+	BYTE 0
+	
+	ArcherGemLink:
+	BYTE ArcherGem
+	
+	ArcherGemHitLink:
+	BYTE 15
+	
+	CavalierGemLink:
+	BYTE CavalierGem
+	
+	CavalierGemMovLink:
+	BYTE 2
+	
+	PegasusGemLink:
+	BYTE PegasusGem
+	
+	ALIGN 4
+
+	#include "Gems/asm/PupilGemEffect.lyn.event"
+	ALIGN 4
+	
+	#include "Gems/asm/CountRookieGems.lyn.event"
+	ALIGN 4
+	
+	#include "Gems/asm/ArcherGemEffect.lyn.event"
+	ALIGN 4
+	
+	#include "Gems/asm/CannotIfCantoingExceptPegasusGem.lyn.event"
+	ALIGN 4
+
+	#include "Gems/asm/CavalierGemCanto.lyn.event"
+	ALIGN 4
+	
+	#include "Gems/asm/CavalierGemCantoMov.lyn.event"
+	ALIGN 4
+
+
+//Warp and Elwarp can have different warp ranges
+//#include "WarpRange/WarpRange.event"
+//ALIGN 4
+
+#include "Distract/Distract.event"
+ALIGN 4
+
+#include "Inept/Inept.event"
+ALIGN 4
+
+#include "Restore/Restore.event"
+ALIGN 4
+
+//#include "Shift/Shift.event"
+ALIGN 4
+
+//Defender/Thoron
+//#include "DamageTakenReduction/DamageTakenReduction.event"
+ALIGN 4
+
+/*
+//Vigor Edge
+
+	VigorEdgeIDLink:
+	BYTE VigorEdge
+	
+	VigorEdgeBonuses:
+	defStatBoosts(0,0,0,0,0,0,10,10)
+	BYTE 0
+	
+	ALIGN 4
+	
+	//Called by PostBattleCalcLoop
+	#include "VigorEdge/VigorEdgeRegainAction.lyn.event"
+	ALIGN 4
+	
+//Item Errors
+	
+	PromotionItemErrorTextLinks:
+	SHORT PromotionItemErrorTextNotFlow
+	SHORT PromotionItemErrorTextNotPreparations
+	ALIGN 4
+	
+	PUSH
+	
+	ORG 0x28E20
+	#include "ItemErrors/New_Promotion_Item_Error.lyn.event"
+	ALIGN 4
+	PROTECT 0x28E20 CURRENTOFFSET-1
+	
+	POP
+	
+*/
+
+/*
+//Weak Lockpick
+#include "Keys/Keys.event"
+ALIGN 4
+
+//Concoction
+#include "Healing/Healing.event"
+ALIGN 4
+
+//Coupons and New/Used Silver Cards
+#include "PriceModifyingItems/PriceModifyingItems.event"
+ALIGN 4
+
+#include "LearningRing/LearningRing.event"
+ALIGN 4
+
+#include "Gems/Gems.event"
+ALIGN 4
+
+#include "Perfectus/Perfectus.event"
+ALIGN 4
+
+#include "FocusBelt/FocusBelt.event"
+ALIGN 4
+
+#include "Whetstone/Whetstone.event"
+ALIGN 4
+
+#include "ScoutBadge/ScoutBadge.event"
+ALIGN 4
+
+//Half Guard's effect is handled by Attack Formula
+HalfGuardIDLink:
+BYTE HalfGuard
+ALIGN 4
+
+#include "Guardian/Guardian.event"
+ALIGN 4
+
+#include "Rustbow/Rustbow.event"
+ALIGN 4
+
+#include "HeavyHoveringBoots/HeavyHoveringBoots.event"
+ALIGN 4
+
+#include "Lull/Lull.event"
+ALIGN 4
+
+#include "Warden/Warden.event"
+ALIGN 4
+
+#include "Slow/Slow.event"
+ALIGN 4
+
+#include "Absorb/Absorb.event"
+ALIGN 4
+
+
+#include "StatBoosterChanges.event"
+#include "WeaponStatBonuses.event"
+
+*/

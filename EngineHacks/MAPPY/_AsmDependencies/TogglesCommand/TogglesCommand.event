@@ -1,0 +1,69 @@
+
+#include "asm/ShowTogglesMenu.lyn.event"
+ALIGN 4
+
+#include "asm/TogglesMenuReturnToMapMenu.lyn.event"
+ALIGN 4
+
+#include "asm/PrepScreenTogglesDisplay.lyn.event"
+ALIGN 4
+
+#include "asm/SetUpPrepScreenTogglesMenu.lyn.event"
+ALIGN 4
+
+#include "asm/TransitionFromTogglesMenuToPrepScreenMenu.lyn.event"
+ALIGN 4
+
+gMenu_TogglesMenu:
+BYTE 1 2 9 0 //x, y, width, height
+WORD 0 //style
+POIN TogglesSubMapMenu
+WORD 0 //?
+WORD 0 //?
+WORD 0 //?
+POIN TogglesMenuReturnToMapMenu //On B-Press
+POIN 0x4F520|1 //On R-Press (helptext)
+POIN 0x4F458|1 //On B-Press after R-Press (cancel helptext)
+
+TogglesSubMapMenu:
+MapMenuCommand(MM_AiTog,AiTogDesc,OrangeText,0x4F448,MapMenuAiToggleColor,MapMenuAiToggleDisplay)
+//MapMenuCommand(MM_ReinWarn,ReinWarnDesc,OrangeText,MM_RWToggleUsability,MapMenuReinforcementWarningsColor,MapMenuReinWarnToggle)
+//MapMenuCommand(MMShopSortToggle,ShopSortToggleDesc,OrangeText,MM_ShopSortToggleUsability,MapMenuShopSortColor,MapMenuShopSortToggle)
+MapMenuCommand(MM_DropIcon,DropIconDesc,OrangeText,0x4F448,MapMenuDropIconColor,MapMenuDropIconToggle)
+MapMenuCommand(MM_BossIcon,BossIconDesc,OrangeText,0x4F448,MapMenuBossIconColor,MapMenuBossIconToggle)
+WORD 0 0 0 0 0 0 0 //Terminator
+
+PrepScreenTogglesMapMenuList:
+//AI Toggle
+WORD 0 //Usability check (no pointer = always usable)
+POIN PrepScreenAiToggleDisplay|1 //After selecting
+SHORT PS_AiTog AiTogDesc //Text ID; help text ID
+PrepScreenAiToggleDisplayIDLink:
+BYTE 3 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+
+/*
+//Reinforcement Warning Toggle
+//WORD 0 //Usability check (no pointer = always usable)
+POIN PSMM_RWToggleUsability|1
+POIN PrepScreenReinWarnToggle|1 //After selecting
+SHORT PS_ReinWarn ReinWarnDesc //Text ID; help text ID
+PrepScreenReinWarnToggleIDLink:
+BYTE 4 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+*/
+
+/*
+//Shop Sorting Toggle
+//WORD 0 //Usability check (no pointer = always usable)
+POIN PSMM_ShopSortToggleUsability|1
+POIN PrepScreenShopSortToggle|1 //After selecting
+SHORT PS_ShopSort ShopSortToggleDesc //Text ID; help text ID
+PrepScreenShopSortToggleIDLink:
+BYTE 5 0 //Option ID
+SHORT 0 //Text color if no color conditional routine
+*/
+
+PS_Separator
+
+WORD 0

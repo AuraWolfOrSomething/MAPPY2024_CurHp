@@ -1,0 +1,19 @@
+
+/*
+UNIT charID classID leader Level(lvl,faction,autolevel) [x,y] flags 0 number_of_REDAs pointer_to_REDAs [Item1,Item2,Item3,Item4] AI 
+
+REDA_Pointer
+REDA [x,y] Flags Speed *Rescuing character* Delay
+*/
+
+BadUnits:
+UNIT ONeill Fighter 0 Level(3,Enemy,False) [10,8] NoUnitFlags 0 0 0 [IronAxe] [AttackInRange,DoNotMove,NormalRecovery,DefaultAI4]
+UNIT 0x80 Fighter 0 Level(1,Enemy,True) [8,6] DropItem 0 0 0 [IronAxe] [AttackInRange,DoNotMove,NormalRecovery,DefaultAI4]
+UNIT 0x80 WyvernRider 0 Level(1,Enemy,True) [13,6] NoUnitFlags 0 0 0 [IronLance,IronAxe] [AttackInRange,DoNotMove,NormalRecovery,DefaultAI4]
+UNIT
+
+Units:
+UNIT Eirika EirikaLord 0 Level(1,Ally,False) [4,5] NoUnitFlags 0 0 0 [IronSword,Rapier,Vulnerary,Elixir] NoAI
+UNIT Seth Paladin 0 Level(1,Ally,False) [4,4] NoUnitFlags 0 0 0 [Lancereaver,SteelSword,SilverLance,Vulnerary] NoAI
+UNIT RievCC Bishop 0 Level(15,Ally,False) [3,3] NoUnitFlags 0 0 0 [Distract,Inept,Heal] NoAI
+UNIT

@@ -43,16 +43,36 @@
     POIN HPFrames+56
     POIN HPFrames+64
     POIN HPFrames+72
-    POIN HPFrames+80
-    POIN HPFrames+88
+    //POIN HPFrames+80
+    //POIN HPFrames+88
 
+  ALIGN 4
+  DebuffArrowFrame:
+  //#incbin "bin/DebuffArrowFrame.bin"
+	WORD 0x000F0001
+	WORD 0x087301FF
+	
+  BuffArrowFrame:
+  //#incbin "bin/BuffArrowFrame.bin"
+	WORD 0x000F0001
+	WORD 0x087201FF
+    
+  
   ALIGN 4
   HPBarsOnMapHack:
-    #include "asm/WarningAndHpBars.lyn.event"
+    //#include "asm/WarningAndHpBars.lyn.event"
+    #include "asm/WarningAndHpBars_ReaperEnemies.lyn.event"
 
   ALIGN 4
+  
   HPBarGraphic:
-    #incbin "bin/WarningHpSheet.dmp" 
+    #incbin "bin/WarningHpSheetSmallBars.dmp" 
+	
+	/*
+	MESSAGE theHPBarGraphic currentOffset
+    #incext Png2Dmp "bin/WarningHpSheetSmallBars.png" --lz77 
+	MESSAGE endOfGraphic currentOffset
+	*/
 	
   ALIGN 4
   WS_FrameData: //should be the OAM data
@@ -64,6 +84,9 @@
   Talk_FrameData:
 	WORD 0x400f0001 //16x8 sprite
 	WORD 0x087001ee //tile #0x70
+  Reaper_FrameData:
+   WORD 0x000f0001
+	WORD 0x087501ff //the tile is 0x75
 
   }
 

@@ -1,0 +1,48 @@
+## FireName
+Fire[X]
+
+## FireDesc
+ [X]
+
+## ThunderName
+Thunder[X]
+
+## ThunderDesc
+ [X]
+
+## ElfireName
+Elfire[X]
+
+## ElfireDesc
+ [X]
+
+## BoltingName
+Bolting[X]
+
+## BoltingDesc
+Long-range magic attack.[X]
+
+## FimbulvetrName
+Fimbulvetr[X]
+
+## FimbulvetrDesc
+ [X]
+
+## GaleName
+Gale[X]
+
+## GaleDesc
+Mt x3 vs fliers.[X]
+
+## QuakeName
+Quake[X]
+
+## QuakeDesc
+Targets Def.[X]
+
+## EternityName
+Eternity[X]
+
+## EternityDesc
+Reverses magic triangle and[N]
+doubles its effects.[X]

@@ -1,0 +1,16 @@
+
+#define GenericBossQuoteEventID 1
+#define DefeatBossEventID 2
+#define ChapterWinEventID 3
+
+#define SetSeizeAsArriveID 0x21
+#define SetSeizeAsEscapeID 0x22
+#define PlayerUnitEscapingID 0x23
+
+#define AiToggleEventID 0xB4
+#define AIToggleEventID AiToggleEventID
+#define PlanEventID 0xB5
+#define WinWhilePlanningEventID 0xB6
+#define LoseWhilePlanningEventID 0xB7
+#define DropIconToggleEventID 0xB8
+#define BossIconToggleEventID 0xB9

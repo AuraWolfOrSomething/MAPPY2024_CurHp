@@ -1,0 +1,70 @@
+
+#include "MapMenuDefs.event"
+
+PUSH
+
+//Repoint vanilla map menu
+ORG 0x59D21C
+POIN MapMenuList
+
+//Menu y-coord
+ORG 0x59D214
+BYTE 1 //vanilla is 0x01
+
+//Menu y-coord
+ORG 0x59D215
+BYTE 3 //vanilla is 0x02
+
+//Menu width
+ORG 0x59D216
+BYTE 8 //vanilla is 0x07
+
+#ifndef PlayerPhaseMainIdle
+
+	//Adjust x-coords
+	ORG 0x1CA86
+	BYTE 0x15 //vanilla is 0x17
+	
+	//If Map Menu is too tall, adjust y-coord
+	ORG 0x1CA88
+	BL(0x4F64C) //StartMenu_AndDoSomethingCommands
+	PROTECT 0x1CA86 CURRENTOFFSET-1
+	
+#endif
+
+POP
+
+#include "asm/ChangeMapMenuCommandColor.lyn.event"
+ALIGN 4
+
+MapMenuList:
+
+MapMenuCommand(MM_Future,MM_FutureDesc,GreenText,MM_ActUsability,MM_FutureUsability,MM_FutureEffect)
+
+MapMenuCommand(MM_Act,MM_ActDesc,NormalText,MM_ActUsability,MM_ActEffect)
+
+MM_Unit
+MM_Status
+
+MM_Guide
+
+MapMenuCommand(MM_Plan,MM_PlanDesc,NormalText,MM_PlanUsability,MM_PlanEffect)
+
+MapMenuCommand(MM_Toggles,TogglesDesc,NormalText,0x4F448,ShowTogglesMenu)
+
+MM_Records
+
+MM_Options
+
+MM_Retreat
+
+//MM_Suspend
+MapMenuCommand(MM_QuickSave,QuickSaveDesc,NormalText,MM_QuickSaveUsability,0x225D0)
+
+MapMenuCommand(MM_Undo,UndoDesc,NormalText,MM_UndoUsability,MM_UndoColorUsability,MM_UndoEffect)
+
+//Should have all new commands before this
+MM_End
+
+//Should DEFINITELY have all new commands before this
+MM_Separator

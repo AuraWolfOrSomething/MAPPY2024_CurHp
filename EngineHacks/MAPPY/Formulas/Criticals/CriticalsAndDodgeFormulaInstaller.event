@@ -1,0 +1,17 @@
+PUSH
+
+ORG 0x2AC18
+#include "CriticalHitFormulaParameters.lyn.event"
+ALIGN 4
+PROTECT 0x2AC18 CURRENTOFFSET-1
+
+POP
+
+#include "CriticalHitFormula.lyn.event"
+ALIGN 4
+
+#include "DodgeFormulaParameters.lyn.event"
+ALIGN 4
+
+#include "DodgeFormula.lyn.event"
+ALIGN 4

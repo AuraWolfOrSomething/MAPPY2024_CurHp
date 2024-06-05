@@ -1,0 +1,177 @@
+## ChestKeyName
+Chest Key[X]
+
+## ChestKeyDesc
+Opens chests.[X]
+
+## ChestKeyUseDesc
+Opens chests.[X]
+
+## DoorKeyName
+Door Key[X]
+
+## DoorKeyDesc
+Opens doors in[NL]
+adjacent spaces.[X]
+
+## DoorKeyUseDesc
+Opens doors.[X]
+
+## LockpickName
+Lockpick[X]
+
+## LockpickDesc
+Opens doors and chests.[NL]
+Usable only by thieves.[X]
+
+## LockpickUseDesc
+Universal lockpicks[NL]
+designed for thieves.[X]
+
+## VulneraryName
+Vulnerary[X]
+
+## VulneraryDesc
+A medicinal solution used[NL]
+for healing 15 HP.[X]
+
+## VulneraryUseDesc
+Restores 15 HP.[X]
+
+## ElixirName
+Elixir[X]
+
+## ElixirDesc
+A powerful solution that[NL]
+restores all HP.[X]
+
+## ElixirUseDesc
+Restores all HP.[X]
+
+## PureWaterName
+Pure Water[X]
+
+## PureWaterDesc
+A draught that boosts Res by[NL]
+7. -1 Res after each turn.[X]
+
+## PureWaterUseDesc
++7 Res. -1 Res[N]
+after each turn.[X]
+
+## LightRuneName
+Light Rune[X]
+
+## LightRuneDesc
+Summons an impassable hex[NL]
+on a tile for 3 turns.[X]
+
+## LightRuneUseDesc
+Draws an impassable[NL]
+hex on a space for[NL]
+3 turns.[X]
+
+## PupilGemName
+Pupil Gem[X]
+
+## PupilGemDesc
+Can use weapons, tomes, and staves 1[N]
+rank greater than unit's currect rank.[N]
+Item usage is still limited by class.[X]
+
+## PupilGemUseDesc
+Lower rank[N]
+requirements by 1.[X]
+
+## RookieGemName
+Rookie Gem[X]
+
+## RookieGemDesc
++3 Lck. This unit cannot be critically[N]
+hit or activate backfires.[X]
+
+## RookieGemUseDesc
++3 Lck.[N]
+Immune to critical[N]
+hits and backfires.[X]
+
+## ArcherGemName
+Archer Gem[X]
+
+## ArcherGemDesc
++15 Hit.[X]
+
+## ArcherGemUseDesc
++15 Hit.[X]
+
+## CavalierGemName
+Cavalier Gem[X]
+
+## CavalierGemDesc
+Can Canto with (unusedMov + 2) Mov[N]
+after any action besides Wait.[N]
+Won't activate for non-player units or[N]
+if the unit is moving and acting again.[X]
+
+## CavalierGemUseDesc
+Canto after action[N]
+with 2 more Mov.[X]
+
+## PegasusGemName
+Pegasus Gem[X]
+
+## PegasusGemDesc
+While Cantoing, unit can use[N]
+Rescue/Give/Take/Drop/Trade.[X]
+
+## PegasusGemUseDesc
+Rescue/Give/Take/[N]
+Drop/Trade when[N]
+Cantoing.[X]
+
+## PanaceaName
+Panacea[X]
+
+## PanaceaDesc
+Removes the Injury condition.[N]
+Using this item costs 1,000 gold.[N]
+Only usable during preprations.[X]
+
+## PanaceaUseDesc
+Revive unit.[N]
+1,000 gold per use.[N]
+Preparations only.[X]
+
+## RevivalItemTextPopup
+Injury healed.[X]
+
+## TealGemName
+Teal Gem[X]
+
+## TealGemDesc
+Worth 1,500 gold.[X]
+
+## MasterKeyName
+Master Key[X]
+
+## MasterKeyDesc
+Opens doors and chests.[X]
+
+## MasterKeyUseDesc
+Can open doors in[NL]
+adjacent tiles[NL]
+and chests.[X]
+
+## SecondSealName
+Second Seal[X]
+
+## SecondSealDesc
+Can only be used by Flow and[N]
+only during preparations.[N]
+They can swap to a different[N]
+class while keeping their Lv.[X]
+
+## SecondSealUseDesc
+Can class change.[N]
+Flow only.[N]
+Preparations only.[X]

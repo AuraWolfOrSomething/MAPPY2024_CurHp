@@ -1,0 +1,5 @@
+  
+  #define BossMusicEntry(entryID,character,music) "PUSH; ORG BossMusicTableOffset+entryID*8; BYTE character 0 0 0; SHORT music 0; POP"
+  
+  //BossMusicEntry(0,ONeill,Powerful_Foe)
+  

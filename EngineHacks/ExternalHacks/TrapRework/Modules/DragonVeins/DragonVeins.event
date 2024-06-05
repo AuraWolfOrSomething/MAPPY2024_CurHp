@@ -87,7 +87,7 @@ DragonVeinWav:
 #ifndef SongTableOffset
     #define SongTableOffset 0x224470
     #define SongTable(index,SongPointer,Group) "PUSH; ORG SongTableOffset+(8*index); POIN SongPointer; SHORT Group Group; POP"
-  #endif // SongTableOffset
+#endif // SongTableOffset
 
 SongTable(DragonVeinSFXID,DragonVeinSFX,7)
 

@@ -1,0 +1,134 @@
+## HealName
+Heal[X]
+
+## HealDesc
+Healing: (Pow + 10) HP to a nearby ally.[X]
+
+## HealUseDesc
+Amount = Pow + 10[X]
+
+## MendName
+Mend[X]
+
+## MendDesc
+Healing: (Pow + 20) HP to an[N]
+adjacent ally.[X]
+
+## MendUseDesc
+Amount = Pow + 20[X]
+
+## RecoverName
+Recover[X]
+
+## RecoverDesc
+Healing: All HP to an adjacent ally.[X]
+
+## RecoverUseDesc
+Restores all HP.[X]
+
+## PhysicName
+Physic[X]
+
+## PhysicDesc
+Healing: (Pow + 10) HP to a distant ally.[X]
+
+## PhysicUseDesc
+Restores many HP[NL]
+to distant allies.[NL]
+Amount = Pow + 10[X]
+
+## FortifyName
+Fortify[X]
+
+## FortifyDesc
+Healing: (Pow + 10) HP to all[N]
+allies nearby.[X]
+
+## FortifyUseDesc
+Restores HP to all[NL]
+allies in one area.[NL]
+Amount = Pow + 10[X]
+
+## RestoreName
+Restore[X]
+
+## RestoreDesc
+Other: Relieve a nearby ally of their[N]
+negative status and debuffs.[X]
+
+## RestoreUseDesc
+Cure negative[N]
+statuses and[N]
+debuffs.[X]
+
+## WarpName
+Warp[X]
+
+## WarpDesc
+Teleport: An adjacent ally can go to a[N]
+tile up to (Pow/2) spaces away.[X]
+
+## WarpUseDesc
+Teleports allies up to[NL]
+Pow/2 spaces away.[X]
+
+## RescueStaffName
+Rescue[X]
+
+## RescueStaffDesc
+Teleport: An ally from a distant space[N]
+goes to an adjacent tile.[X]
+
+## RescueStaffUseDesc
+Move an ally to a[NL]
+space adjacent to[NL]
+the staff wielder.[X]
+
+## HammerneName
+Hammerne[X]
+
+## HammerneDesc
+Other: Fully restore the durability on an[N]
+adjacent ally's weapon, magic, or staff.[X]
+
+## HammerneUseDesc
+Restores items to[NL]
+new condition.[X]
+
+## BarrierName
+Barrier[X]
+
+## BarrierDesc
+Buff: +7 Res to an adjacent ally.[N]
+-1 Res after each turn.[X]
+
+## BarrierUseDesc
++7 Res. -1 Res[N]
+after each turn.[X]
+
+## DistractName
+Distract[X]
+
+## DistractDesc
+Movement: Target goes to a tile up to[N]
+4 Mov away (unless their Mov is less[N]
+than 4).[X]
+
+## DistractUseDesc
+Move target.[X]
+
+## DistractTargetBottomText
+Select a unit to distract.[X]
+
+## DistractTargetBottomText2
+Select their destination.[X]
+
+## IneptName
+Inept[X]
+
+## IneptDesc
+Debuff: Lower enemy's ranks by 2 letter[N]
+grades for (5 - enemyRes/5) turns.[X]
+
+## IneptUseDesc
+Lower ranks by 2.[X]

@@ -1,0 +1,84 @@
+## IronAxeName
+Iron Axe[X]
+
+## IronAxeDesc
+ [X]
+
+## SteelAxeName
+Steel Axe[X]
+
+## SteelAxeDesc
+ [X]
+
+## SilverAxeName
+Silver Axe[X]
+
+## SilverAxeDesc
+ [X]
+
+## BraveAxeName
+Brave Axe[X]
+
+## BraveAxeDesc
+Can perform consecutive attacks.[X]
+
+## KillerAxeName
+Killer Axe[X]
+
+## KillerAxeDesc
+ [X]
+
+## HalberdName
+Halberd[X]
+
+## HalberdDesc
+Mt x3 vs cavalry.[X]
+
+## HammerName
+Hammer[X]
+
+## HammerDesc
+Mt x3 vs heavy armor.[X]
+
+## BronzeAxeName
+Bronze Axe[X]
+
+## BronzeAxeDesc
++15 Dodge.[X]
+
+## HandAxeName
+Hand Axe[X]
+
+## HandAxeDesc
+ [X]
+
+## TomahawkName
+Tomahawk[X]
+
+## TomahawkDesc
+ [X]
+
+## SwordreaverName
+Swordreaver[X]
+
+## SwordreaverDesc
+Reverses weapon triangle and[N]
+doubles its effects.[X]
+
+## HatchetName
+Hatchet[X]
+
+## HatchetDesc
++3 Spd.[X]
+
+## BattleAxeName
+Battle Axe[X]
+
+## BattleAxeDesc
+ [X]
+
+## DevilAxeName
+Devil Axe[X]
+
+## DevilAxeDesc
+Can backfire. Chance = (31-Lck)%[X]

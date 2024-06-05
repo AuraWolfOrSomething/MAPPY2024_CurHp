@@ -9,7 +9,7 @@
 @jumped to at 22410 (fe6)
 @r4 = char data ptr
 
-.equ crit_warning_cutoff, 24	@anything less than or equal this won't trigger the !
+.equ crit_warning_cutoff, 19	@anything less than or equal this won't trigger the !
 
 .if FE6 == 1
 	.equ WarningCache, 			0x0203ACC0	@free space in ram. Change this if necessary.
@@ -73,6 +73,12 @@
 	.equ inventory_slot1, 		0x1E
 	.equ status_byte, 			0x30
 .endif
+
+.macro blh to, reg=r3
+  ldr \reg, =\to
+  mov lr, \reg
+  .short 0xf800
+.endm
 
 push	{r4-r7}
 add		sp,#-0x10
@@ -152,12 +158,12 @@ cmp     r2, #0x0
 beq     CheckIfSelected         @if hp is zero, don't try to show the bar
 
 cmp		r2,r0
-bge		CheckIfSelected			@if hp is max, don't show the bar
+bge		CheckIfBuffs			@if hp is max, don't show the bar
 mov		r1,r0 @ arg r1 = mhp
 sub		r0,r2
-mov		r2,#11
-mul		r0,r2 @ arg r0 = damage*11
-swi		#6						@damage*11/maxHP
+mov		r2,#9
+mul		r0,r2 @ arg r0 = damage*9
+swi		#6						@damage*9/maxHP
 @Call the drawing routine
 ldr		r1,=WRAMDisplay
 mov		r14,r1
@@ -176,7 +182,58 @@ mov		r3,#0xFF
 and		r1,r3
 mov		r3,#0
 .short	0xF800					@call routine to display bars
-b CheckIfSelected
+
+CheckIfBuffs:
+@first, some setup
+mov		r0,r4
+blh		GetDebuffs,r1
+mov		r6,r0
+mov		r5,#0
+
+@now we check
+ldr		r0,[r6,#4]
+ldr		r1,=AnyBuffsBitfieldLink
+ldr		r1,[r1]
+tst		r0,r1
+bne		DrawBuffArrow
+
+	mov		r0,r4
+	blh		IsShiftEffectActive,r1
+	cmp		r0, #0
+	beq		CheckIfDebuffs
+
+	DrawBuffArrow:
+	mov		r0,r13
+	mov		r1,r5
+	ldr		r2,=BuffArrowFrame
+	mov		r3,#0xF7
+	bl		DrawArrow
+	add		r5,#4 @if two arrows must be drawn on a unit, this will shift it to the right by 4 pixels
+	
+CheckIfDebuffs:
+ldr		r0,[r6]
+ldr		r1,=AnyDebuffsBitfieldLink
+ldr		r1,[r1]
+tst		r0,r1
+bne		DrawDebuffArrow
+
+	mov		r0,r4
+	blh		IsRallyActive,r1
+	cmp		r0, #0
+	bne		DrawDebuffArrow
+	
+	mov		r0,r4
+	blh		IsShiftEffectActive,r1
+	cmp		r0, #0
+	beq		CheckIfSelected
+	
+	DrawDebuffArrow:
+	mov		r0,r13
+	mov		r1,r5
+	ldr		r2,=DebuffArrowFrame
+	mov		r3,#0xF9
+	bl		DrawArrow
+	b		CheckIfSelected
 
 .align
 .ltorg
@@ -247,11 +304,15 @@ beq		TalkEventCheck			@if not enemy, no need for this check
 	cmp		r0,#0
 	bne		IsEffective
 .endif
+@priority system for making effective warning appear before high crit warning regardless of item order in unit inventory
+push	{r7}
+mov		r7,#0
+BeginningOfLoop:
 mov		r5,#inventory_slot1
 LoopThroughItems:
 ldrh	r1,[r4,r5]
 cmp		r1,#0
-beq		TalkEventCheck
+beq		NextItem
 mov		r0,r4
 ldr		r2,=Can_Equip_Item
 mov		r14,r2
@@ -265,26 +326,42 @@ mov		r14,r2
 .short	0xF800
 cmp		r0,#0
 bne		IsEffective
+@cmp		r7,#0
+@beq		CheckCrit @optional setting: if unit has a high crit weapon as their first item, then that will be prioritized over having an effective weapon
+cmp		r7,#5
+blt		NextItem
+CheckCrit:
 ldrh	r0,[r4,r5]
 ldr		r1,=Get_Item_Crit
 mov		r14,r1
 .short	0xF800
 cmp		r0,#crit_warning_cutoff
-bgt		IsCritty
+ble		NextItem
+cmp		r0,#255
+bne		IsCritty @255 means cannot crit
 NextItem:
 add		r5,#2
+add		r7,#1
 cmp		r5,#inventory_slot1+8
 ble		LoopThroughItems
-b		TalkEventCheck
+cmp		r7,#5
+bne		NoDangerousItem
+b		BeginningOfLoop
 
 IsEffective:
 mov		r0,#1
-orr		r7,r0
-b		TalkEventCheck
+b		TransitionFromWarning
 
 IsCritty:
 mov		r0,#2
+
+TransitionFromWarning:
+pop		{r7}
 orr		r7,r0
+b		TalkEventCheck
+
+NoDangerousItem:
+pop		{r7}
 
 TalkEventCheck:
 ldr		r0,[r6]
@@ -366,6 +443,31 @@ lsl		r0,#0x1C
 lsr		r0,#0x1C
 ldr		r1,=return_addr
 bx		r1
+
+.align
+.ltorg
+
+DrawArrow:
+push	{r4,r14}
+ldr		r4,=WRAMDisplay
+mov		lr,r4
+@lsl	r1,#2
+ldr		r4,[r0,#0x4]			@x-x'
+add		r4,r1
+ldr		r1,[r0,#0xC]			@0x201
+add		r4,r1
+sub		r1,#2					@0x1FF
+and		r4,r1
+ldr		r1,[r0,#0x8]			@y-y'
+mov		r0,r4
+add		r1,r3
+mov		r3,#0xFF
+and		r1,r3
+mov		r3,#0
+.short	0xF800
+pop		{r4}
+pop		{r0}
+bx		r0
 
 .align
 .ltorg

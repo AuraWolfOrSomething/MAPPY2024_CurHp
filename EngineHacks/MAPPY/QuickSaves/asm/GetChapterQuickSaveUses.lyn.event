@@ -1,0 +1,7 @@
+ALIGN 4
+PUSH
+ORG CURRENTOFFSET+$1;GetChapterQuickSaveUses:
+POP
+SHORT $4802 $4903 $7B89 $5C40 $4770 $46C0
+POIN ChapterQuickSaveTable
+BYTE $F0 $BC $2 $2

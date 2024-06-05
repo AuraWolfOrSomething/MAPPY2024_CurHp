@@ -1,0 +1,30 @@
+
+//credit 7743
+ShowMenu:
+#incbin "asm/ShowMenu.dmp"
+POIN ShowMenuXCoordList
+ALIGN 4
+
+ShowMenuXCoordList:
+POIN gMenu_TogglesMenu
+WORD 0x15
+
+POIN 0x0859D214 //gMenu_MapMenu
+WORD 0x15
+
+WORD 0
+WORD 0x16
+
+//rewrites routine repositioning menus with 7+ commands
+PUSH
+ORG 0x4F64C
+#include "asm/StartMenu_AndDoSomethingCommands.lyn.event"
+ALIGN 4
+PROTECT 0x4F64C CURRENTOFFSET-1
+POP
+
+#include "asm/StartMenu_AndDoSomethingCommandsCont.lyn.event"
+ALIGN 4
+
+#include "asm/ReuseCursorLocation.lyn.event"
+ALIGN 4

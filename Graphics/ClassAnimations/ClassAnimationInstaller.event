@@ -1,0 +1,58 @@
+#ifndef ClassAnimTable
+  //#define ClassAnimTable (0xc00008-0x20)
+  #define ClassAnimTable (NewClassAnimTable-0x20)
+#endif
+
+#ifndef BlankClassAnimation
+	#define BlankClassAnimation(ClassID) "PUSH; ORG ClassTable+(ClassID*84)+52; WORD 0; POP"
+#endif
+
+#define AnimTableEntry(index) "ORG ClassAnimTable + (index * 0x20)"
+#define ProtectSpace_AnimTableEntry(index) "ORG ClassAnimTable+(index*0x20); WORD 0 0 0 0 0 0 0 0"
+
+#define LastAnimId 0xD1
+
+BYTE LastAnimId 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  
+NewClassAnimTable:
+#incbin "FE8VanillaAnimTable.dmp"
+ProtectSpace_AnimTableEntry(LastAnimId)
+
+
+
+//////////////Installed animations go here:
+
+
+/*
+{
+#include "WyvernRider/Axe/Axe Installer.event"
+#include "WyvernRider/Handaxe/Handaxe Installer.event"
+}
+
+{
+#include "WyvernLord/Axe/Axe Installer.event"
+#include "WyvernLord/Handaxe/Handaxe Installer.event"
+}
+
+SetClassAnimation(WyvernRider,AnimTableWyvernRider)
+SetClassAnimation(WyvernRider_F,AnimTableWyvernRider)
+SetClassAnimation(WyvernLord,AnimTableWyvernLord)
+SetClassAnimation(WyvernLord_F,AnimTableWyvernLord)
+
+AnimTableWyvernRider:
+AddClassAnimation(0x58,Axes,GenericAni)
+AddClassAnimation(0x5A,HandAxe,CustomAni)
+AddClassAnimation(0x5A,Tomahawk,CustomAni)
+AddClassAnimation(0x5A,Hatchet,CustomAni)
+AddClassAnimation(0x59,Disarmed,GenericAni)
+EndClassAnimation
+
+AnimTableWyvernLord:
+AddClassAnimation(0x5D,Lances,GenericAni)
+AddClassAnimation(0x5C,Axes,GenericAni)
+AddClassAnimation(0xD1,HandAxe,CustomAni)
+AddClassAnimation(0xD1,Tomahawk,CustomAni)
+AddClassAnimation(0xD1,Hatchet,CustomAni)
+AddClassAnimation(0x5E,Disarmed,GenericAni)
+EndClassAnimation
+*/

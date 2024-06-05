@@ -1,0 +1,36 @@
+
+PUSH
+
+ORG 0x1E380
+BL(WarpAndElwarpRange)
+SHORT 0x1C03 //mov r3, r0
+PROTECT 0x1E380 CURRENTOFFSET-1
+
+ORG continueInBlRange
+WarpAndElwarpRange:
+SHORT 0xB530 0x1C04 //push {r4-r5,r14}; mov r4, r0
+SHORT 0x7F81 0x4A0B //ldrb r1, [r0,#0x1E]; ldr r2, =WarpStaffLink
+SHORT 0x7812 0x4291 //ldrb r2, [r2]; cmp r1, r2
+SHORT 0xD101 0x2005 //bne (Elwarp); mov r0, #5
+SHORT 0xE001 //b (SaveBaseRange)
+BL(0x18A1C) //Elwarp: GetUnitMagBy2Range
+SHORT 0x1C05  0x1C20 //SaveBaseRange: mov r5, r0; mov r0, r4
+SHORT 0x4907 0x7809 // ldr r1, =StaffSavnotIDLink; ldrb r1, [r1]
+SHORT 0x4B07 0x469E //ldr r3, =SkillTester; mov lr, r3
+SHORT 0xF800 0x2800 //; bl lr+0; cmp r0, #0
+SHORT 0xD000 0x3D02 //beq ReturnWarpingRange; sub r5, #2
+SHORT 0x1C28 0xBC30//ReturnWarpingRange: mov r0, r5; pop {r4-r5}
+SHORT 0xBC02 0x4708 //pop {r1}; bx r1
+ALIGN 4
+POIN WarpStaffLink
+POIN StaffSavnotIDLink
+POIN SkillTester
+
+#undef continueInBlRange
+#define continueInBlRange currentOffset
+
+POP
+
+WarpStaffLink:
+BYTE Warp
+ALIGN 4

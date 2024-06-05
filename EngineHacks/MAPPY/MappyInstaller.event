@@ -1,0 +1,162 @@
+//ASM Dependencies
+
+	ReusableTempRAMPointer:
+	WORD ReusableTempRAMLoc
+
+	ReusableLargeTempRAMPointer:
+	WORD ReusableLargeTempRAMLoc
+
+	DebuffTableLink:
+	WORD DebuffTable
+
+	DebuffTableSizeLink:
+	WORD DebuffTableSize
+
+	ArrowTextIdLink:
+	SHORT ArrowTextID
+
+	RankLabelLink:
+	SHORT RankLabel
+
+	DurationLabelLink:
+	SHORT ConditionDurationLabel
+
+	ALIGN 4
+	
+	#include "_AsmDependencies/ShowMenu/ShowMenu.event"
+	
+	#include "_AsmDependencies/ExpandedConvoy/ExpandedConvoy.event"
+	
+	#include "_AsmDependencies/MapMenu/MapMenu.event"
+
+	#include "_AsmDependencies/PrepScreenModding/PrepScreenModding.event"
+	
+	#include "_AsmDependencies/ConditionalMenuCommandName/ConditionalMenuCommandName.event"
+	
+	#include "_AsmDependencies/SwitchGameplayPhase/SwitchGameplayPhase.event"
+	
+	#include "_AsmDependencies/ResetCursor/ResetCursor.event"
+	
+	#include "_AsmDependencies/TogglesCommand/TogglesCommand.event"
+	
+	#include "_AsmDependencies/ModularUnitMenuCommandUsability/ModularUnitMenuCommandUsability.event"
+	
+	#include "_AsmDependencies/GetUnitHighestWexp/GetUnitHighestWexp.lyn.event"
+	ALIGN 4
+	
+	#include "_AsmDependencies/CountCopiesOfItem/CountCopiesOfItem.lyn.event"
+	ALIGN 4
+
+#include "HpBetweenChapterHack/Installer.event"
+
+#include "ModularMinimugBox/Installers/MMBInstallerMAPPY.event"
+ALIGN 4
+
+//Autolevel units with a weapon that has a lock and a rank (credit Datagne)
+
+	PUSH
+	ORG 0x17F88
+	BYTE 0x00 0x21
+	PROTECT 0x17F88 CURRENTOFFSET-1
+	POP
+	
+//Speed up gameplay
+
+	PUSH
+	
+	//Speed up cursor on AI's target (credit Vesly)
+	ORG 0x39EAE
+	BYTE 25 //vanilla is 45
+
+	//Speed up "got item/gold" popup (credit Vesly)
+	ORG 0x114FA
+	BYTE 75 //vanilla is 96
+	ORG 0x1166C
+	BYTE 75 //vanilla is 96
+
+	//Faster battle map anim rounds (credit Vesly)
+	ORG 0x9A4A06
+	BYTE 18 //vanilla is 30
+	ORG 0x9A4A16
+	BYTE 18 //vanilla is 30
+	ORG 0x9A4A26
+	BYTE 18 //vanilla is 30
+	ORG 0x9A4A36
+	BYTE 7 //vanilla is 10
+	ORG 0x9A4A46
+	BYTE 18 //vanilla is 30
+
+	//Double speed of vulnerary animation (credit 7743)
+	ORG 0x7BCE2 
+	BYTE 0x08 0x34 0x24 0x04 0x24 0x0C 0x00 0x00 0x00 0x00 0x8c 0x42 0x09 0xDA
+
+	//Start anims off battle faster
+	ORG 0x9A356A
+	BYTE 10 //vanilla is 15
+	
+	//Speed up poison/exhaustion damage (credit Vesly)
+	ORG 0x9A50AE
+	BYTE 35 //vanilla is 50; delay on hp drain
+	
+	ORG 0x9A50BE
+	BYTE 15 //vanilla is 15; delay on hp bar disappearing
+	
+	ORG 0x9A50CE
+	BYTE 10 //vanilla is 10; delay on going to next unit
+	
+	POP
+
+#include "MultiTileMarker/MultiTileMarker_Install.event"
+
+#include "DisplayObtainableItem/Installer.event"
+
+//ShowHealAmount by Teq
+	PUSH
+	ORG 0x24670
+	jumpToHack(ShowHealAmount)
+	POP
+
+	ShowHealAmount:
+	#incbin "ShowHealAmount/ShowHealAmount_Hook.dmp"
+	POIN ShowHealAmount_Func
+
+	ShowHealAmount_Func:
+	#incbin "ShowHealAmount/ShowHealAmount_Func.dmp"
+	WORD ArrowTextID
+
+
+
+//Aura Wolf ASM
+
+#include "SupplyView/SupplyView.event"
+
+#include "UpdatedLButtonCycling/UpdatedLButtonCycling.event"
+
+//Requires EMS edit and adding Proc_BurnConsistentRns to BattleProcCalcLoop)
+#include "RandomizeRNs/RandomizeRNs.event"
+
+#include "WEXP/WEXP.event"
+
+#include "EmotionBubble/Show_map_emotion_Install.event"
+
+#include "StatusDebuffs/StatusDebuffs.event"
+
+#include "DisplayAiOnMinimugBox/DisplayAiOnMinimugBox.event"
+
+#include "Plan/Plan.event"
+
+#include "QuickSaves/QuickSaves.event"
+
+#include "Undo/Undo.event"
+
+#include "Formulas/Formulas.event"
+
+#include "Items/Items.event"
+
+#include "WeaponRankModifiers/WeaponRankModifiers.event"
+
+#include "StaffUsageRequisites/StaffUsageRequisites.event"
+
+#include "FlashingIconToggle/FlashingIconToggle.event"
+
+#include "HelpText/Installer.event"

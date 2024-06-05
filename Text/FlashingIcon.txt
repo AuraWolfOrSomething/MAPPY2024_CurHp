@@ -1,0 +1,20 @@
+
+## MM_DropIcon
+ Drop Toggle[X]
+
+## PS_DropIcon
+Drop Toggle[X]
+
+## DropIconDesc
+Toggles the flashing icon for[N]
+enemies that drop items.[X]
+
+## MM_BossIcon
+ Boss Toggle[X]
+
+## PS_BossIcon
+Boss Toggle[X]
+
+## BossIconDesc
+Toggles the flashing[N]
+icon for bosses.[X]

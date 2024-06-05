@@ -1,0 +1,139 @@
+
+//Terminate lists with WORD 0
+
+SeizeUsabilityList:
+POIN CannotIfCantoing
+POIN 0x37B64 //CanUnitSeize
+POIN CannotIfNoEventSeize
+WORD 0
+
+//Attack Usability List
+
+//Attack_B Usability List
+
+//Staff Command Usability List
+
+//Ride Usability List
+
+//Exit Usability List
+
+//Play Usability List
+
+//Dance Usability List
+
+//Steal Usability List
+
+//Summon Usability List
+
+//Summon_DK Usability List
+
+//Pick Usability List
+
+TalkUsabilityList:
+POIN CannotIfCantoing
+POIN CannotIfEmptyTargetListTalk
+POIN GrayCommandIfSilenced
+WORD 0
+
+SupportUsabilityList:
+POIN CannotIfCantoing
+POIN CannotIfEmptyTargetListSupport
+POIN GrayCommandIfSilenced
+WORD 0
+
+VisitUsabilityList:
+POIN CannotIfPhantom
+POIN CannotIfCantoing
+POIN VisitEligibleTerrain
+POIN CannotIfNoEventVisit
+POIN GrayCommandIfSilenced
+WORD 0
+
+ChestUsabilityList:
+POIN CannotIfCantoing
+POIN IsUnitCapableOfUnlockingChest
+POIN 0x290FC //CanUseChestKey
+WORD 0
+
+DoorUsabilityList:
+POIN CannotIfCantoing
+POIN IsUnitCapableOfUnlockingDoor
+POIN CannotIfEmptyTargetListDoor
+WORD 0
+
+ArmoryUsabilityList:
+POIN CannotIfPhantom
+POIN CannotIfCantoing
+POIN CannotIfNoEventArmory
+WORD 0
+
+VendorUsabilityList:
+POIN CannotIfPhantom
+POIN CannotIfCantoing
+POIN CannotIfNoEventVendor
+WORD 0
+
+//Secret Usability List
+
+//Arena Usability List
+
+RescueUsabilityList:
+POIN CannotIfCantoingExceptPegasusGem //CannotIfCantoing
+POIN CannotIfCarryingUnit
+POIN CannotIfInsideBallista
+POIN CannotIfEmptyTargetListRescue
+WORD 0
+
+GiveUsabilityList:
+POIN CannotIfCantoingExceptPegasusGem //CannotIfCantoing
+POIN CannotIfNotCarryingUnit
+//POIN CannotUseMoreThanOnceTakeGive
+POIN CannotIfEmptyTargetListGive
+WORD 0
+
+TakeUsabilityList:
+POIN CannotIfCantoingExceptPegasusGem //CannotIfCantoing
+POIN CannotIfCarryingUnit
+//POIN CannotUseMoreThanOnceTakeGive
+POIN CannotIfEmptyTargetListTake
+WORD 0
+
+DropUsabilityList:
+POIN CannotIfCantoingExceptPegasusGem //CannotIfCantoing
+POIN CannotIfNotCarryingUnit
+POIN CannotIfEmptyTargetListDrop
+WORD 0
+
+ItemUnitMenuUsabilityList:
+POIN CannotIfPhantom
+POIN CannotIfCantoing
+POIN CannotIfEmptyInventory
+WORD 0
+
+TradeUsabilityList:
+POIN CannotIfCantoingExceptPegasusGem //CannotIfCantoing
+//POIN CannotUseMoreThanOnceTrade
+POIN CannotIfSupply
+POIN CannotIfEmptyTargetListTrade
+WORD 0
+
+SupplyUsabilityList:
+POIN 0x3161C //HasConvoyAccess
+POIN CannotIfPhantom
+//POIN CannotIfNoNearbySupplyLord
+POIN CannotIfNoNearbySupplySkill
+//POIN CannotIfNoNearbySupplySkillWithoutShade
+WORD 0
+
+//Wait Usability List
+
+#include "asm/UnitMenuCommandConditionLoop.lyn.event"
+ALIGN 4
+
+#include "TryAddUnitToTargetList/TryAddUnitToTargetList.event"
+
+#include "MumcuChecks.event"
+ALIGN 4
+
+#include "MumcuHooks.event"
+ALIGN 4

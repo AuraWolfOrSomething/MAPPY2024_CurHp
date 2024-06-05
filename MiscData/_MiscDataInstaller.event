@@ -1,0 +1,18 @@
+
+#define LastPlayableUnitID 0x2C
+LastPlayableUnitIDLink:
+BYTE LastPlayableUnitID
+ALIGN 4
+
+#include "ChapterSettings.event"
+ALIGN 4
+
+#include "DeathQuoteTable.event"
+ALIGN 4
+
+#include "BattleQuoteTable.event"
+ALIGN 4
+
+#ifdef TESTING_ZERO_GROWTHS
+	#include "SetCharacterGrowths.event"
+#endif

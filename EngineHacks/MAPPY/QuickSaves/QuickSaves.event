@@ -1,0 +1,95 @@
+
+QuickSavesRAMPointer:
+WORD QuickSavesRAMLoc
+
+ChapterQuickSaveTable:
+//BYTE amountForChapter
+
+//Chapter ids 0x00-0x0F
+BYTE 2 2 2 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+
+//Chapter ids 0x10-0x1F
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+
+//Chapter ids 0x20-0x2F
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+
+//Chapter ids 0x30-0x3F
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+
+//Chapter ids 0x40-0x4F
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+BYTE 1 1 1 1
+ALIGN 4
+
+
+
+//-------------------------------------------
+//WIZARD CHECKPOINT
+//Do not touch anything below unless you know what you're doing
+//-------------------------------------------
+
+
+
+//Suspend event
+	PUSH
+
+	ORG 0x5920B8
+	EVBIT_MODIFY 0x4
+	TEXTSTART
+	TEXTSHOW 0x8FE
+	TEXTEND
+	SVAL s7 1
+	BNE 0 sC s7
+		//ASMC 0xB5D5D
+		ASMC MM_QuickSaveEffect|1
+		TEXTSHOW2 0x8FF
+		TEXTEND
+		/*
+		Handles returning to title screen after selecting yes
+		MUSCMID 0x7FFF
+		FADI 4
+		MNTS 0x0
+		*/
+	LABEL 0
+	REMA
+	NoFade
+	ENDA
+
+	POP
+
+#include "asm/GetChapterQuickSaveUses.lyn.event"
+ALIGN 4
+
+#include "asm/GetRemainingQuickSaveUses.lyn.event"
+ALIGN 4
+
+#include "asm/SetQuickSaveUses.lyn.event"
+ALIGN 4
+
+#include "asm/MM_QuickSaveUsability.lyn.event"
+ALIGN 4
+
+#include "asm/MM_QuickSaveEffect.lyn.event"
+ALIGN 4
+
+#include "asm/MM_QuickSaveEditName.lyn.event"
+ALIGN 4
+
+#include "asm/EMSQuickSaveFunctions.lyn.event"
+ALIGN 4
+
