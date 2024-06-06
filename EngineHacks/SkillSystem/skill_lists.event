@@ -82,7 +82,7 @@ BYTE 00 00
 ALIGN 4
 
 WyvernKnightSkillList:
-BYTE 1 LunaID
+//BYTE 1 LunaID
 BYTE 00 00
 ALIGN 4
 

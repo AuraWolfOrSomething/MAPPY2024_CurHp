@@ -15,7 +15,7 @@
 		ldr		r0, =StatScreenStatusDebuffSetUp
 		ldr		r6, =HelpTextExtraInfoRAMLocation
 		ldr		r6, [r6]
-		ldrb	r1, [r6]
+		ldrb	r1, [r6,#2]
 		
 		@Weird bug where sometimes this can be accessed while page number is at 0 (though I ended up finding this by just mashing, so perhaps it's not something that will occur often?)
 			@If this is such an instance, then find the first page
